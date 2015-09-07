@@ -9,6 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface DemoEntity : NSObject
-@property (nonatomic, strong) NSNumber *codenumber;
-@property (nonatomic, strong) NSString *com;
+
 @end

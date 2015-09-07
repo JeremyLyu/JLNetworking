@@ -79,6 +79,16 @@
 
 - (NSError *)makeSuccessToFailureWithResponseObject:(id)reponseObject
 {
-    return [NSError errorWithDomain:@"成功返回了，但业务需求，让它变为失败的回掉" code:1234 userInfo:nil];
+    return [NSError errorWithDomain:@"成功返回了，但业务需求，让它变为失败的回调" code:1234 userInfo:nil];
 }
+
+@end
+
+@implementation DemoReq3
+
+- (id<JLNetworkingReqResponseMapper>)responseMapper
+{
+    return [JLNetworkingDefaultMapper mapperWithClassName:NSStringFromClass([DemoEntity class])];
+}
+
 @end

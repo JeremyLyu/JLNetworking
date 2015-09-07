@@ -24,19 +24,39 @@
     return mapper;
 }
 
+#pragma mark - JLNetworkingReqResponseMapper
+
 - (id)req:(JLNetworkingReq *)req mapResponseObject:(id)responseObject
 {
     id newResponseObj = responseObject;
-
-    //必须是字典类型才会做反射处理
     if([responseObject isKindOfClass:[NSDictionary class]])
     {
-        if(_className != nil)
+        //查找数据块
+        id dataObject = [responseObject valueForKeyPath:self.dataPath];
+        if(dataObject)
         {
-            Class entityClass = NSClassFromString(_className);
-            if(entityClass != NULL)
+            //只支持字典类型和数组类型
+            if([dataObject isKindOfClass:[NSArray class]])
             {
-                newResponseObj = [self getEntityWithEntityClass:entityClass propertyDict:responseObject];
+                NSMutableArray *entitys = [NSMutableArray new];
+                BOOL isDataIntegrity = YES;
+                for(id eachObject in (NSArray *)dataObject)
+                {
+                    if([eachObject isKindOfClass:[NSDictionary class]] == NO)
+                    {
+                        isDataIntegrity = NO;
+                        break;
+                    }
+                    [entitys addObject:[self getEntityWithDict:eachObject]];
+                }
+                if(isDataIntegrity)
+                {
+                    newResponseObj = entitys;
+                }
+            }
+            else if([dataObject isKindOfClass:[NSDictionary class]])
+            {
+                newResponseObj = [self getEntityWithDict:dataObject];
             }
         }
     }
@@ -44,20 +64,18 @@
 }
 
 #pragma mark - private
-- (id)getEntityWithEntityClass:(Class)entityClass propertyDict:(NSDictionary *)propertyDict
+- (id)getEntityWithDict:(NSDictionary *)propertyDict
 {
+    if(_className == nil) return propertyDict;
+    Class entityClass = NSClassFromString(_className);
+    if(entityClass == NULL) return propertyDict;
+    
     id entity = [[entityClass alloc] init];
-    if([entityClass conformsToProtocol:@protocol(JLDefaultMapperProtocol)])
-    {
-        //查找数据块
-        NSDictionary *dataDict = [propertyDict valueForKeyPath:self.dataPath];
-        [(id<JLDefaultMapperProtocol>)entity setValueWithPropertyDict:dataDict];
-        return entity;
-    }
-    else
-    {
-        return propertyDict;
-    }
+    if([entityClass conformsToProtocol:@protocol(JLDefaultMapperProtocol)] == NO) return propertyDict;
+    
+    [(id<JLDefaultMapperProtocol>)entity setValueWithPropertyDict:propertyDict];
+    return entity;
 }
+    
 
 @end

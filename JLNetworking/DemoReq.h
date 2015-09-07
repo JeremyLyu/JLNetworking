@@ -25,3 +25,7 @@
 
 @interface DemoReq2 : DemoReq
 @end
+
+@interface DemoReq3 : DemoReq
+
+@end

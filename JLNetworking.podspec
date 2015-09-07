@@ -20,8 +20,11 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.platform = :ios
   s.ios.deployment_target = "7.0"
-  s.source_files  = "Classes", "Classes/*.{h,m}"
-  s.dependency 'AFNetworking'
+
+    s.subspec 'Networking' do |ss|
+    ss.source_files = "Classes/*.{h,m}"
+    ss.dependency 'AFNetworking'
+    end
 
     s.subspec 'Support' do |ss|
     ss.source_files = "Classes/Support/*.{h,m}"
@@ -29,6 +32,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'Mapper' do |ss|
     ss.source_files = "Classes/Mapper/*.{h,m}"
+    ss.dependency 'JLNetworking/Networking'
     end
 
 end

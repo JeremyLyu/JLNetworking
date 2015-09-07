@@ -38,6 +38,7 @@
         {
             //带消息头的请求
             DemoReq1 *req = [DemoReq1 new];
+            //也可以在外部设置 req.headerDict = @[];
             [req sendWithCity:@"成都" success:^(id responseObject) {
                 NSLog(@"%@", responseObject);
             } failure:nil];
@@ -45,6 +46,7 @@
             break;
         case 1003:
         {
+            //将成功的请求转为失败
             DemoReq2 *req = [DemoReq2 new];
             [req sendWithType:@"shunfeng" postId:@(991849911763) success:nil
              failure:^(NSError *error) {
@@ -53,7 +55,13 @@
         }
             break;
         case 1004:
-            
+        {
+            //使用默认mapper
+            DemoReq3 *req = [DemoReq3 new];
+            [req sendWithType:@"shunfeng" postId:@(991849911763) success:^(id responseObject) {
+                NSLog(@"%@", responseObject);
+            } failure:nil];
+        }
             break;
             
         default:
