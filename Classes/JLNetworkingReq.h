@@ -18,6 +18,7 @@
 - (NSString *)baseUrl;
 - (NSString *)pathUrl;
 - (JLNetworkingRequestType)requestType;
+//TODO: LXJ 添加debugURL的必要性，再考虑下
 
 @optional
 //映射器方法，如果希望最终返回给外部的数据，是经过映射处理内容，请实现此方法
