@@ -7,6 +7,8 @@
 //
 
 #import "JLDefaultMapper.h"
+
+#ifdef COCOAPODS_POD_AVAILABLE_JSONModel
 #import <JSONModel.h>
 
 @interface JSONModel (JLDefaultMapper) <JLDefaultMapperProtocol>
@@ -26,6 +28,7 @@
     return entity;
 }
 @end
+#endif
 
 @interface JLDefaultMapper ()
 @property (nonatomic, strong) NSString *className;
@@ -77,6 +80,10 @@
             {
                 newResponseObj = [self getEntityWithDict:dataObject];
             }
+        }
+        else
+        {
+            NSLog(@"未能找到正确的数据块，请检查设置的dataPath是否正确");
         }
     }
     return newResponseObj;
