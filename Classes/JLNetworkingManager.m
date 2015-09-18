@@ -9,6 +9,10 @@
 #import "JLNetworkingManager.h"
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
 
+@interface JLNetworkingManager ()
+@property (nonatomic, strong) NSMutableDictionary *operationQueueDict;
+@end
+
 @implementation JLNetworkingMultiDataObj
 
 - (instancetype)init
@@ -81,10 +85,11 @@ static const NSTimeInterval JLNetworkingDefaultTimeoutInterval = 30;
         self.requestList = [NSMutableArray new];
         self.requestIdDict = [NSMutableDictionary new];
         self.nextRequestId = @(1);
+        self.operationQueueDict = [NSMutableDictionary new];
         //配置operationManager
         self.mainOperationManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:nil];
         self.mainOperationManager.requestSerializer.timeoutInterval = JLNetworkingDefaultTimeoutInterval;
-        //TODO: LXJ 是否真的应该添加这个兼容性代码，这原本使用来兼容一些所谓restful API不规范的contentType
+        //TODO: LXJ 是否真的应该添加这个兼容性代码，这原本使用来兼容一些返回JSON的API不规范的contentType
         //暂且写在这里吧，谁叫国内写接口的服务器程序员都这么炫呢。╮(╯▽╰)╭
         [self.mainOperationManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"text/html",
                                                                                  @"text/json",

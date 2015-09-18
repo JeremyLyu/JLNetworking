@@ -46,13 +46,23 @@
                     </connections>
                 </button>
                 <button opaque="NO" tag="1004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lYS-s1-Tay">
-                    <rect key="frame" x="88" y="117" width="143" height="30"/>
+                    <rect key="frame" x="70" y="138" width="181" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="请求返回使用Mapper(数组)">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnPressed:" destination="-1" eventType="touchUpInside" id="l6Q-9a-SSa"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="1005" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="nAw-aB-YJ2">
+                    <rect key="frame" x="89" y="114" width="143" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="请求返回使用Mapper">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="btnPressed:" destination="-1" eventType="touchUpInside" id="l6Q-9a-SSa"/>
+                        <action selector="btnPressed:" destination="-1" eventType="touchUpInside" id="xQ5-M5-Ueb"/>
                     </connections>
                 </button>
             </subviews>

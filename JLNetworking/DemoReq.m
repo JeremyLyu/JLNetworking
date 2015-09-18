@@ -7,7 +7,7 @@
 //
 
 #import "DemoReq.h"
-#import "JLNetworkingDefaultMapper.h"
+#import "JLDefaultMapper.h"
 #import "DemoEntity.h"
 
 @interface DemoReq ()
@@ -60,7 +60,7 @@
 
 - (NSString *)pathUrl
 {
-    return @"heweather/weather/free";
+    return @"apistore/idservice/id";
 }
 
 - (JLNetworkingRequestType)requestType
@@ -68,11 +68,14 @@
     return JLNetworkingRequestTypeGet;
 }
 
-- (void)sendWithCity:(NSString *)city success:(JLNetworkingCompletedBlock)success failure:(JLNetworkingFailedBlock)failure
+- (void)sendWithId:(NSNumber *)idNum
+           success:(JLNetworkingCompletedBlock)success
+           failure:(JLNetworkingFailedBlock)failure
 {
-    NSDictionary *params = @{@"city": city};
+    NSDictionary *params = @{@"id" : idNum};
     [self sendWithParams:params success:success failure:failure];
 }
+
 @end
 
 @implementation DemoReq2
@@ -88,7 +91,17 @@
 
 - (id<JLNetworkingReqResponseMapper>)responseMapper
 {
-    return [JLNetworkingDefaultMapper mapperWithClassName:NSStringFromClass([DemoEntity class])];
+    return [JLDefaultMapper mapperWithClassName:NSStringFromClass([DemoEntity class])];
 }
 
+@end
+
+@implementation DemoReq4
+
+- (id<JLNetworkingReqResponseMapper>)responseMapper
+{
+    JLDefaultMapper *mapper = [JLDefaultMapper mapperWithClassName:NSStringFromClass([DemoEntity1 class])];
+    mapper.dataPath = @"retData";
+    return mapper;
+}
 @end

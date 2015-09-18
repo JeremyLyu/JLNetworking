@@ -7,17 +7,12 @@
 //
 
 #import "DemoEntity.h"
-#import "JLNetworkingDefaultMapper.h"
-
-@interface DemoEntity () <JLDefaultMapperProtocol>
-
-@end
+#import "JLDefaultMapper.h"
 
 @implementation DemoEntity
 
-- (void)setValueWithPropertyDict:(NSDictionary *)propertyDict
-{
+@end
 
-}
+@implementation DemoEntity1
 
 @end

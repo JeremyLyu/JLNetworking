@@ -27,7 +27,6 @@
 - (NSTimeInterval)timeoutInterval;
 /*下面两个方法为输出输入正确检测方法，建议在实现。实际上有效的参数的检查，能够规避很多主逻辑上的错误，防止造成项目灾难*/
 //检验参数是否正确
-//TODO: 参数检查与数据更加相关，比如entity 或者 mapper返回对象，考虑把检查独立出去
 - (BOOL)isCorrectWithRequestParams:(NSDictionary *)params;
 //检验返回的内容是否正确
 - (BOOL)isCorrectWithResponseObject:(NSDictionary *)responseObject;
@@ -45,6 +44,8 @@
 //TODO: 这个signature或许有点多余的样子。嘛，还是留着吧，保持一点灵活度╮(╯3╰)╭
 @property (nonatomic, weak) id<JLNetworkingReqSignature> signature;     //用于请求前，参数签名的代理
 @property (nonatomic, weak) id<JLNetworkingReqHook> hook; //外部钩子，可以在这里面做点日志记录啊什么的
+
+//TODO: 请求Cache的代理。这个东西，感觉还是很有必要
 
 /**
  *  发送请求
@@ -70,7 +71,6 @@
                success:(JLNetworkingCompletedBlock)success
                failure:(JLNetworkingFailedBlock)failure;
 
-//TODO: 增加只有一个回调的情况。比如回收poup
 
 /**
  *  取消当前的网络请求

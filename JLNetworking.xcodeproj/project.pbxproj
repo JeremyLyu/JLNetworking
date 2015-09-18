@@ -12,7 +12,7 @@
 		29CB85CB1B9C2930006C5644 /* NSObject+DLIntrospection.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CB85CA1B9C2930006C5644 /* NSObject+DLIntrospection.m */; };
 		29CB85D11B9C70EB006C5644 /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CB85CF1B9C70EB006C5644 /* DemoViewController.m */; };
 		29CB85D21B9C70EB006C5644 /* DemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29CB85D01B9C70EB006C5644 /* DemoViewController.xib */; };
-		29CB85D61B9D370C006C5644 /* JLNetworkingDefaultMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CB85D51B9D370C006C5644 /* JLNetworkingDefaultMapper.m */; };
+		29CB85D61B9D370C006C5644 /* JLDefaultMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CB85D51B9D370C006C5644 /* JLDefaultMapper.m */; };
 		29D87DFD1B8EA64A00BFEA54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29D87DFC1B8EA64A00BFEA54 /* main.m */; };
 		29D87E001B8EA64A00BFEA54 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 29D87DFF1B8EA64A00BFEA54 /* AppDelegate.m */; };
 		29D87E081B8EA64A00BFEA54 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29D87E071B8EA64A00BFEA54 /* Images.xcassets */; };
@@ -35,6 +35,8 @@
 /* Begin PBXFileReference section */
 		01A61078ABD1455E317AEC3D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		199147C0CE01D192B3F191A2 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		290674D81BABE97000C073E5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		290674DC1BABED5300C073E5 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		292D6BD81B905B7400119DCC /* JLNetworkingReqProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLNetworkingReqProtocols.h; sourceTree = "<group>"; };
 		29458D411B95A23A004E2DB0 /* DemoEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoEntity.h; sourceTree = "<group>"; };
 		29458D421B95A23A004E2DB0 /* DemoEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoEntity.m; sourceTree = "<group>"; };
@@ -45,8 +47,8 @@
 		29CB85CE1B9C70EB006C5644 /* DemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoViewController.h; sourceTree = "<group>"; };
 		29CB85CF1B9C70EB006C5644 /* DemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoViewController.m; sourceTree = "<group>"; };
 		29CB85D01B9C70EB006C5644 /* DemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DemoViewController.xib; sourceTree = "<group>"; };
-		29CB85D41B9D370C006C5644 /* JLNetworkingDefaultMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLNetworkingDefaultMapper.h; sourceTree = "<group>"; };
-		29CB85D51B9D370C006C5644 /* JLNetworkingDefaultMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JLNetworkingDefaultMapper.m; sourceTree = "<group>"; };
+		29CB85D41B9D370C006C5644 /* JLDefaultMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLDefaultMapper.h; sourceTree = "<group>"; };
+		29CB85D51B9D370C006C5644 /* JLDefaultMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JLDefaultMapper.m; sourceTree = "<group>"; };
 		29D87DF71B8EA64A00BFEA54 /* JLNetworking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JLNetworking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29D87DFB1B8EA64A00BFEA54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29D87DFC1B8EA64A00BFEA54 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -118,8 +120,8 @@
 		29CB85D31B9D370C006C5644 /* Mapper */ = {
 			isa = PBXGroup;
 			children = (
-				29CB85D41B9D370C006C5644 /* JLNetworkingDefaultMapper.h */,
-				29CB85D51B9D370C006C5644 /* JLNetworkingDefaultMapper.m */,
+				29CB85D41B9D370C006C5644 /* JLDefaultMapper.h */,
+				29CB85D51B9D370C006C5644 /* JLDefaultMapper.m */,
 			);
 			path = Mapper;
 			sourceTree = "<group>";
@@ -200,6 +202,8 @@
 		2DF8BB6841368ADABA832E02 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				290674DC1BABED5300C073E5 /* ImageIO.framework */,
+				290674D81BABE97000C073E5 /* QuartzCore.framework */,
 				EAE201319277046EBAA6700E /* libPods.a */,
 			);
 			name = Frameworks;
@@ -341,7 +345,7 @@
 			files = (
 				29D87E231B8EAA0A00BFEA54 /* JLNetworkingManager.m in Sources */,
 				29CB85CB1B9C2930006C5644 /* NSObject+DLIntrospection.m in Sources */,
-				29CB85D61B9D370C006C5644 /* JLNetworkingDefaultMapper.m in Sources */,
+				29CB85D61B9D370C006C5644 /* JLDefaultMapper.m in Sources */,
 				29458D431B95A23A004E2DB0 /* DemoEntity.m in Sources */,
 				29D87E001B8EA64A00BFEA54 /* AppDelegate.m in Sources */,
 				29D87DFD1B8EA64A00BFEA54 /* main.m in Sources */,

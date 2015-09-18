@@ -39,9 +39,11 @@
             //带消息头的请求
             DemoReq1 *req = [DemoReq1 new];
             //也可以在外部设置 req.headerDict = @[];
-            [req sendWithCity:@"成都" success:^(id responseObject) {
+            [req sendWithId:@(420106198708257767) success:^(id responseObject) {
                 NSLog(@"%@", responseObject);
-            } failure:nil];
+            } failure:^(NSError *error) {
+                NSLog(@"%@", error);
+            }];
         }
             break;
         case 1003:
@@ -56,9 +58,18 @@
             break;
         case 1004:
         {
-            //使用默认mapper
+            //使用默认mapper得到entity数组
             DemoReq3 *req = [DemoReq3 new];
             [req sendWithType:@"shunfeng" postId:@(991849911763) success:^(id responseObject) {
+                NSLog(@"%@", responseObject);
+            } failure:nil];
+        }
+            break;
+        case 1005:
+        {
+            //使用默认mapper 修改数据块查找路径得到entity
+            DemoReq4 *req = [DemoReq4 new];
+            [req sendWithId:@(420106198708257767) success:^(id responseObject) {
                 NSLog(@"%@", responseObject);
             } failure:nil];
         }

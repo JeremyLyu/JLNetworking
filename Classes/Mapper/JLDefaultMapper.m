@@ -6,19 +6,37 @@
 //  Copyright (c) 2015年 jeremyLyu. All rights reserved.
 //
 
-#import "JLNetworkingDefaultMapper.h"
+#import "JLDefaultMapper.h"
+#import <JSONModel.h>
 
-@interface JLNetworkingDefaultMapper ()
-@property (nonatomic, strong) NSString *className;
-
+@interface JSONModel (JLDefaultMapper) <JLDefaultMapperProtocol>
+- (instancetype)entityWithDictionary:(NSDictionary *)dict;
 @end
 
-@implementation JLNetworkingDefaultMapper
+@implementation JSONModel (JLDefaultMapper)
+- (instancetype)entityWithDictionary:(NSDictionary *)dict
+{
+    NSError *error = nil;
+    id entity =[[[self class] alloc] initWithDictionary:dict error:&error];
+    if(error)
+    {
+        //希望即使映射不成功，也能把原始的数据给返回给外部
+        entity = dict;
+    }
+    return entity;
+}
+@end
+
+@interface JLDefaultMapper ()
+@property (nonatomic, strong) NSString *className;
+@end
+
+@implementation JLDefaultMapper
 
 + (instancetype)mapperWithClassName:(NSString *)className
 {
     if(className == nil) return nil;
-    JLNetworkingDefaultMapper *mapper = [JLNetworkingDefaultMapper new];
+    JLDefaultMapper *mapper = [JLDefaultMapper new];
     mapper.dataPath = @"data";
     mapper.className = className;
     return mapper;
@@ -38,6 +56,7 @@
             //只支持字典类型和数组类型
             if([dataObject isKindOfClass:[NSArray class]])
             {
+                //生成数组逻辑
                 NSMutableArray *entitys = [NSMutableArray new];
                 BOOL isDataIntegrity = YES;
                 for(id eachObject in (NSArray *)dataObject)
@@ -70,10 +89,10 @@
     Class entityClass = NSClassFromString(_className);
     if(entityClass == NULL) return propertyDict;
     
-    id entity = [[entityClass alloc] init];
     if([entityClass conformsToProtocol:@protocol(JLDefaultMapperProtocol)] == NO) return propertyDict;
-    
-    [(id<JLDefaultMapperProtocol>)entity setValueWithPropertyDict:propertyDict];
+    id entity = [[entityClass alloc] init];
+    entity = [entity entityWithDictionary:propertyDict];
+    entity = entity == nil ? propertyDict : entity;
     return entity;
 }
     

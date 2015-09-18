@@ -18,14 +18,16 @@
 
 @interface DemoReq1 : JLNetworkingReq <JLNetworkingReqBase>
 
-- (void)sendWithCity:(NSString *)city
-             success:(JLNetworkingCompletedBlock)success
-             failure:(JLNetworkingFailedBlock)failure;
+- (void)sendWithId:(NSNumber *)idNum
+           success:(JLNetworkingCompletedBlock)success
+           failure:(JLNetworkingFailedBlock)failure;
 @end
 
 @interface DemoReq2 : DemoReq
 @end
 
 @interface DemoReq3 : DemoReq
+@end
 
+@interface DemoReq4 : DemoReq1
 @end

@@ -14,7 +14,7 @@
  */
 @protocol JLDefaultMapperProtocol <NSObject>
 @required
-- (void)setValueWithPropertyDict:(NSDictionary *)propertyDict;
+- (instancetype)entityWithDictionary:(NSDictionary *)dict;
 @end
 
 
@@ -24,7 +24,7 @@
 /* 使用默认Mapper得到的数据为 mapperWithClassName: 方法中的 className对应的对象 或 对象数组      */
 /* 如果映射不成功(找不到对应的类，或类没有实现JLDefaultMapperProtocol，则得到映射前数据)           */
 /*****************************************************************************************/
-@interface JLNetworkingDefaultMapper : NSObject <JLNetworkingReqResponseMapper>
+@interface JLDefaultMapper : NSObject <JLNetworkingReqResponseMapper>
 /**
  *  查找数据块的路径,默认为@“data”;
  *  比如返回的内容为{@"code":@(123), @"msg":@"提示", @"info":{@"data":{}, @"other":{}}},实际的数据为"data"字段对应的内容
