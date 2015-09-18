@@ -7,16 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <JSONModel.h>
 
-@interface DemoEntity : JSONModel
+@interface DemoEntity : NSObject
 
 @property (nonatomic, strong) NSString *context;
 @property (nonatomic, strong) NSString *ftime;
 @property (nonatomic, strong) NSString *time;
 @end
 
-@interface DemoEntity1 : JSONModel
+@interface DemoEntity1 : NSObject
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, strong) NSString *birthday;
 @property (nonatomic, strong) NSString *sex;

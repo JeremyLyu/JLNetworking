@@ -9,7 +9,7 @@
 #import "JLDefaultMapper.h"
 
 #ifdef COCOAPODS_POD_AVAILABLE_JSONModel
-#import <JSONModel.h>
+#import "JSONModel.h"
 
 @interface JSONModel (JLDefaultMapper) <JLDefaultMapperProtocol>
 - (instancetype)entityWithDictionary:(NSDictionary *)dict;
