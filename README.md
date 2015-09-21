@@ -12,18 +12,18 @@ pod 'JLNetworking', :git => 'https://github.com/JeremyLyu/JLNetworking.git'
 JLNetworkingReqResponseMapper协议，支持将网络请求的返回数据进行自定义处理后再传递给外部，比如
 将返回NSDictionary对象转换成自定义类对象，以方便使用。
 
-方法：在自己的网络请求类中实现 -(id<JLNetworkingReqResponseMapper>)responseMapper 方法
+用法：在网络请求类中实现responseMapper方法
     
     -(id<JLNetworkingReqResponseMapper>)responseMapper
     {
+        //CustomMapper为实现了JLNetworkingReqResponseMapper协议的类
         return [CustomMapper alloc] init];
     }
 
-CustomMapper为实现了JLNetworkingReqResponseMapper协议的类
 
 ## 使用JLDefaultMapper
 
-JLDefaultMapper是默认提供的mapper，能让您在编写网络交互的程序过程中更加身心愉悦。
+JLDefaultMapper是默认提供的mapper，能让您在编写网络交互代码时更加身心愉悦。
 
 它支持以下功能：
 
@@ -33,4 +33,15 @@ JLDefaultMapper是默认提供的mapper，能让您在编写网络交互的程�
 
 3.设置需要处理的内容在返回的数据中的路径。
 
+4.利用CocoaPods机制，默认支持了JSONModel和Mantle
+
+
+用法：在网络请求类中实现responseMapper方法，并return JLDefaultMapper对象
+
+    
+    -(id<JLNetworkingReqResponseMapper>)responseMapper
+    {
+        //Entity为实现了JLDefaultMapperProtocol协议的类
+        return [JLDefaultMapper mapperWithClassName:NSStringFromClass([Entity class])];
+    }
 
