@@ -134,12 +134,12 @@
         return ;
     }
     
-    //返回数据校验
+    //response数据正确性校验
     if([self.child respondsToSelector:@selector(isCorrectWithResponseObject:)])
     {
         if([self.child isCorrectWithResponseObject:responseObject] == NO)
         {
-            NSError *error = [NSError errorWithDomain:@"返回数据未能通过，正确性校验" code:NSURLErrorCannotParseResponse userInfo:nil];
+            NSError *error = [NSError errorWithDomain:@"返回数据未能通过校验" code:NSURLErrorCannotParseResponse userInfo:nil];
             [self responseWithFailure:failure error:error];
             return ;
         }
