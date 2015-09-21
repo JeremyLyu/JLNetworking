@@ -9,8 +9,9 @@
 #import "JLDefaultMapper.h"
 
 /*
- * 利用cocoapods机制增加对JSONModel和Mantle的默认支持，如果你没有使用cocoapods，可以将自己实习支持方案
+ * 利用cocoapods机制增加对JSONModel和Mantle的默认支持，如果你没有使用cocoapods，可以将自己实现支持方案
  */
+//TODO: 考虑下使用类名:方法注册的方式
 #ifdef COCOAPODS_POD_AVAILABLE_JSONModel
 #import "JSONModel.h"
 @interface JSONModel (JLDefaultMapper) <JLDefaultMapperProtocol>
@@ -21,7 +22,7 @@
 - (instancetype)entityWithDictionary:(NSDictionary *)dict
 {
     NSError *error = nil;
-    id entity =[[[self class] alloc] initWithDictionary:dict error:&error];
+    id entity =[[self alloc] initWithDictionary:dict error:&error];
     if(error)
     {
         //希望即使映射不成功，也能把原始的数据给返回给外部
@@ -41,7 +42,7 @@
 - (instancetype)entityWithDictionary:(NSDictionary *)dict
 {
     NSError *error = nil;
-    id entity = [[[self class] alloc] initWithDictionary:dict error:&error];
+    id entity = [[self alloc] initWithDictionary:dict error:&error];
     if(error)
     {
         //希望即使映射不成功，也能把原始数据返回给外部
@@ -121,8 +122,7 @@
     if(entityClass == NULL) return propertyDict;
     
     if([entityClass conformsToProtocol:@protocol(JLDefaultMapperProtocol)] == NO) return propertyDict;
-    id entity = [[entityClass alloc] init];
-    entity = [entity entityWithDictionary:propertyDict];
+    id entity = [[entityClass alloc] entityWithDictionary:propertyDict];
     entity = entity == nil ? propertyDict : entity;
     return entity;
 }
