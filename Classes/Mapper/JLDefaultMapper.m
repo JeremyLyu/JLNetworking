@@ -8,9 +8,11 @@
 
 #import "JLDefaultMapper.h"
 
+/*
+ * 利用cocoapods机制增加对JSONModel和Mantle的默认支持，如果你没有使用cocoapods，可以将自己实习支持方案
+ */
 #ifdef COCOAPODS_POD_AVAILABLE_JSONModel
 #import "JSONModel.h"
-
 @interface JSONModel (JLDefaultMapper) <JLDefaultMapperProtocol>
 - (instancetype)entityWithDictionary:(NSDictionary *)dict;
 @end
@@ -29,6 +31,28 @@
 }
 @end
 #endif
+
+#ifdef COCOAPODS_POD_AVAILABLE_Mantle
+#import "Mantle.h"
+@interface MTLModel (JLDefaultMapper) <JLDefaultMapperProtocol>
+@end
+
+@implementation MTLModel (JLDefaultMapper)
+- (instancetype)entityWithDictionary:(NSDictionary *)dict
+{
+    NSError *error = nil;
+    id entity = [[[self class] alloc] initWithDictionary:dict error:&error];
+    if(error)
+    {
+        //希望即使映射不成功，也能把原始数据返回给外部
+        entity = dict;
+    }
+    return entity;
+}
+@end
+#endif
+
+
 
 @interface JLDefaultMapper ()
 @property (nonatomic, strong) NSString *className;
