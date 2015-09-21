@@ -74,6 +74,14 @@
             } failure:nil];
         }
             break;
+        case 1006:
+        {
+            DemoReq5 *req = [DemoReq5 new];
+            [req sendWithId:@(420106198708257767) success:^(id responseObject) {
+                NSLog(@"%@", responseObject);
+            } failure:nil];
+        }
+            break;
             
         default:
             break;

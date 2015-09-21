@@ -100,8 +100,17 @@
 
 - (id<JLNetworkingReqResponseMapper>)responseMapper
 {
-    JLDefaultMapper *mapper = [JLDefaultMapper mapperWithClassName:NSStringFromClass([DemoEntity1 class])];
-    mapper.dataPath = @"retData";
-    return mapper;
+    return [JLDefaultMapper mapperWithClassName:NSStringFromClass([DemoEntity1 class]) dataPath:@"retData"];
+}
+@end
+
+@implementation DemoReq5
+
+- (id<JLNetworkingReqResponseMapper>)responseMapper
+{
+    return [JLDefaultMapper mapperWithTransformer:^id(id responseObject) {
+        NSString *birth = responseObject[@"retData"][@"birthday"];
+        return [NSString stringWithFormat:@"生日是:%@", birth];
+    }];
 }
 @end

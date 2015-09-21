@@ -9,9 +9,12 @@
 #import "JLDefaultMapper.h"
 
 /*
- * 利用cocoapods机制增加对JSONModel和Mantle的默认支持，如果你没有使用cocoapods，可以将自己实现支持方案
+ * 利用cocoapods机制增加对JSONModel和Mantle的默认支持
  */
-//TODO: 考虑下使用类名:方法注册的方式
+/*****************************************************************************************/
+/*                    关于下面看起来有些蛋疼的代码的一点扯淡                                                    */
+//TODO: 晚点再扯
+/*****************************************************************************************/
 #ifdef COCOAPODS_POD_AVAILABLE_JSONModel
 #import "JSONModel.h"
 @interface JSONModel (JLDefaultMapper) <JLDefaultMapperProtocol>
@@ -57,16 +60,30 @@
 
 @interface JLDefaultMapper ()
 @property (nonatomic, strong) NSString *className;
+@property (nonatomic, strong) NSString *dataPath;
+@property (nonatomic, copy) id(^transformer)(id responseObject);
 @end
 
 @implementation JLDefaultMapper
 
 + (instancetype)mapperWithClassName:(NSString *)className
 {
+    return [JLDefaultMapper mapperWithClassName:className dataPath:@"data"];
+}
+
++ (instancetype)mapperWithClassName:(NSString *)className dataPath:(NSString *)dataPath
+{
     if(className == nil) return nil;
     JLDefaultMapper *mapper = [JLDefaultMapper new];
-    mapper.dataPath = @"data";
+    mapper.dataPath = dataPath;
     mapper.className = className;
+    return mapper;
+}
+
++ (instancetype)mapperWithTransformer:(id(^)(id responseObject))transformer
+{
+    JLDefaultMapper *mapper = [JLDefaultMapper new];
+    mapper.transformer = transformer;
     return mapper;
 }
 
@@ -74,6 +91,12 @@
 
 - (id)req:(JLNetworkingReq *)req mapResponseObject:(id)responseObject
 {
+    //block的方法
+    if(self.transformer)
+    {
+        return self.transformer(responseObject);
+    }
+    //类名映射entity的方式
     id newResponseObj = responseObject;
     if([responseObject isKindOfClass:[NSDictionary class]])
     {

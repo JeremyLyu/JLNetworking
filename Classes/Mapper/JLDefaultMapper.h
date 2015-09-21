@@ -25,20 +25,34 @@
 /* 如果映射不成功(找不到对应的类，或类没有实现JLDefaultMapperProtocol，则得到映射前数据)           */
 /*****************************************************************************************/
 @interface JLDefaultMapper : NSObject <JLNetworkingReqResponseMapper>
+
 /**
- *  查找数据块的路径,默认为@“data”;
- *  比如返回的内容为{@"code":@(123), @"msg":@"提示", @"info":{@"data":{}, @"other":{}}},实际的数据为"data"字段对应的内容
- *  那么将dataPath设置为@“info.data”,即可;
+ *  获取一个mapper,默认映射返回中，data字段下数据
+ *
+ *  @param className 要映射得到的对象类名
+ *
+ *  @return mapper对象
  */
-@property (nonatomic, strong) NSString *dataPath;
++ (instancetype)mapperWithClassName:(NSString *)className;
 
 /**
  *  获取一个mapper
  *
  *  @param className 要映射得到的对象类名
+ *  @param dataPath  查找数据块的路径
+ *  比如返回的内容为{@"code":@(123), @"msg":@"提示", @"info":{@"data":{}, @"other":{}}},实际的数据为"data"字段对应的内容, 那么将dataPath设置为@“info.data”,即可;
  *
- *  @return JLNetworkingDefaulMapper对象
+ *  @return mapper对象
  */
-+ (instancetype)mapperWithClassName:(NSString *)className;
++ (instancetype)mapperWithClassName:(NSString *)className dataPath:(NSString *)dataPath;
+
+/**
+ *  获取一个mapper
+ *
+ *  @param transformer 对返回内容进行处理的block，其中block返回的数据，将作为映射结果传输给外部
+ *
+ *  @return mapper对象
+ */
++ (instancetype)mapperWithTransformer:(id(^)(id responseObject))transformer;
 
 @end

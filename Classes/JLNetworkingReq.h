@@ -18,7 +18,7 @@
 - (NSString *)baseUrl;
 - (NSString *)pathUrl;
 - (JLNetworkingRequestType)requestType;
-//TODO: LXJ 添加debugURL的必要性，再考虑下
+//TODO: 添加debugURL的必要性，再考虑下
 
 @optional
 //映射器方法，如果希望最终返回给外部的数据，是经过映射处理内容，请实现此方法
@@ -41,7 +41,7 @@
 @interface JLNetworkingReq : NSObject
 //请求头字典，默认为nil
 @property (nonatomic, strong) NSDictionary *headerDict;
-//TODO: 这个signature或许有点多余的样子。嘛，还是留着吧，保持一点灵活度╮(╯3╰)╭
+//TODO: 这个signature或许有点多余的样子。还是留着吧，保持一点灵活度╮(╯3╰)╭
 @property (nonatomic, weak) id<JLNetworkingReqSignature> signature;     //用于请求前，参数签名的代理
 @property (nonatomic, weak) id<JLNetworkingReqHook> hook; //外部钩子，可以在这里面做点日志记录啊什么的
 
