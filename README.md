@@ -44,4 +44,6 @@ JLDefaultMapper是默认提供的mapper，能让您在编写网络交互代码�
         //Entity为实现了JLDefaultMapperProtocol协议的类
         return [JLDefaultMapper mapperWithClassName:NSStringFromClass([Entity class])];
     }
+设置处理数据的路径
+
 
