@@ -23,7 +23,7 @@ JLNetworkingReqResponseMapper协议，支持将网络请求的返回数据进行
 
 ## 使用JLDefaultMapper
 
-JLDefaultMapper是默认提供的mapper，能让您在编写网络交互代码时更加身心愉悦。
+JLDefaultMapper是默认提供的mapper，能让您在编写网络交互代码时更加安逸。
 
 它支持以下功能：
 
@@ -38,12 +38,35 @@ JLDefaultMapper是默认提供的mapper，能让您在编写网络交互代码�
 
 用法：在网络请求类中实现responseMapper方法，并return JLDefaultMapper对象
 
-    
     -(id<JLNetworkingReqResponseMapper>)responseMapper
     {
         //Entity为实现了JLDefaultMapperProtocol协议的类
         return [JLDefaultMapper mapperWithClassName:NSStringFromClass([Entity class])];
     }
-设置处理数据的路径
+
+设置处理数据的路径：JLDefaultMapper默认会将返回的NSDictionary下data字段对应的数据进行处理，但是有时候实际数据会放在各种千奇百怪的地方，这个时候就需要您自己设置数据路径。
+
+假设当前访问的WebAPI返回数据如下
+    {
+        message: "成功",
+        code: 200,
+        data: {
+            desc: "这是一个人的数据",
+            info: {
+                name: "小明",
+                sex: "M",
+                age: 16,
+                sexualOrientation: "M"
+            }
+        }
+    }
+显然需要映射成类对象的数据在info字段下，则只需要如下使用:
+
+    -(id<JLNetworkingReqResponseMapper>)responseMapper
+    {
+        //Entity为实现了JLDefaultMapperProtocol协议的类
+        return [JLDefaultMapper mapperWithClassName:NSStringFromClass([Entity class]) dataPath:"ret"];
+    }
+
 
 
