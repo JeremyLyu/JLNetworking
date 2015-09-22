@@ -68,7 +68,7 @@ JLDefaultMapper是默认提供的mapper，能让您在编写网络交互代码�
         return [JLDefaultMapper mapperWithClassName:NSStringFromClass([Entity class]) dataPath:@"data.info"];
     }
 
-##### 在JSONModel与Mantle支持
+##### 对JSONModel与Mantle的支持
 
 如果您在使用JSONModel或者Mantle，并且使用了CocoaPods将它们引用到工程中。那么JLDefaultMapper已经默认支持将返回数据映射
 成JSModel或Mantle的子类对象，不需要您编写相关的支持代码代码。
@@ -78,5 +78,34 @@ JLDefaultMapper是默认提供的mapper，能让您在编写网络交互代码�
         //Model为JSONModel或MTLModel的子类
         return [JLDefaultMapper mapperWithClassName:NSStringFromClass([Model class])];
     }
+使用CocoaPods为工程引入JSONModel和MTLModel，只需在Podfile增加如下两行
 
-如果您不是使用CocoaPods的方式将JSONModel或者Mantle引用到工程，但是又希望JLDefaultMapper能对它们进行支持，那么只需为JSONModel或Mantel增加一个实现JLDefautMapperProtocol的Category，或者在在它们的子类实现这个协议即可。
+    pod "JSONModel"
+    pod "Mantle"
+
+如果您不是使用CocoaPods的方式将JSONModel或者Mantle引用到工程，但是又希望JLDefaultMapper能对它们进行支持，那么只需为JSONModel或Mantel增加一个实现JLDefautMapperProtocol的扩展，或者在在它们的子类实现这个协议即可。
+
+##### 更灵活的映射方式
+
+有时候，我们希望能对返回数据做更灵活的处理，可以转化成任意的类型传递给外部，JLDefaultMapper提供更灵活的方式
+
+    - (id<JLNetworkingReqResponseMapper>)responseMapper
+    {
+        /*WebAPI返回的数据
+        {
+            retData =     {
+                address = "\U6e56\U5317\U7701\U6b66\U6c49\U5e02\U6b66\U660c\U533a";
+                birthday = "1987-08-25";
+                sex = F;
+            };
+            retMsg = success;
+        }
+        */
+
+        return [JLDefaultMapper mapperWithTransformer:^id(id responseObject) {
+            NSString *birth = responseObject[@"retData"][@"birthday"];
+            return [NSString stringWithFormat:@"生日是:%@", birth];
+        }];
+    }
+如果请求成功，则返回给外部的数据为 @"生日是 1987-08-25"。
+
