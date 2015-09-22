@@ -1,6 +1,6 @@
 # JLNetworking
 
-* _(:3」∠)_。。。Wiki还在搭建中 *
+###### _(:3」∠)_。。。Wiki还在搭建中 
 
 JLNetworking是基于AFNetworking封装的轻量级iOS网络库，希望提供一种对WebAPI方便、可靠的访问方式。
 它的设计遵循“易用、简洁、易扩展”的思想。
@@ -20,7 +20,7 @@ AFNetworking。
 
 您的每个网络请求都需要继承`JLNetworkingReq`类，并实现`JLNetworkingReqBase`协议中的必须方法，每个网络请求都是一个类对象。
 
-* 申明一个请求类
+  申明一个请求类
 
     @interface DemoReq : JLNetworkingReq <JLNetworkingReqBase>
     @end
@@ -39,11 +39,11 @@ AFNetworking。
 
     - (JLNetworkingRequestType)requestType
     {
-        //是一个Get请求
+        //是一个GET请求
         return JLNetworkingRequestTypeGet;
     }
     @end
-* 使用
+  使用
 
     - (void)viewDidLoad
     {
@@ -55,7 +55,7 @@ AFNetworking。
         }];
     }
     
-为了让调用者更加清晰的知道需要传入的参数，建议为网络请求类增加一个发起访问的方法
+  为了让调用者更加清晰的知道需要传入的参数，建议为网络请求类增加一个发起访问的方法
 
     - (void)sendWithType:(NSString *)type
     postId:(NSNumber*)postId
@@ -66,7 +66,7 @@ AFNetworking。
         @"postid" : postId};
         [self sendWithParams:params success:success failure:failure];
     } 
-* 使用
+  使用
 
     - (void)viewDidLoad
     {
