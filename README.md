@@ -1,11 +1,19 @@
 # JLNetworking
 
-Wiki还在搭建中，库的使用方法：请fork工程，然后查看Demo里面的用法
+Wiki还在搭建中
 
-将库引用到项目
+JLNetworking是基于AFNetworking封装的轻量级iOS网络库，希望提供一种对WebAPI 方便、可靠的访问方式。
+它的设计遵循“易用、简洁、易扩展”的思想
 
-pod 'JLNetworking', :git => 'https://github.com/JeremyLyu/JLNetworking.git'
+#### 感谢
+感谢 [AFNetworking] 的维护人员 和 [田伟宇(Casa Taloyum)] 的无私工作与分享。
 
+#### 将JLNetworking引用到项目
+1.建议使用CocoaPods，在您的工程的Podfile中添加以下代码即可
+    pod 'JLNetworking', :git => 'https://github.com/JeremyLyu/JLNetworking.git'
+
+2.将代码下载到本地，然后将Classes目录手动添加到您的工程中。由于是基于AFNetworking的封装，你的工程中需要引入
+AFNetworking。
 
 ## Mapper
 
@@ -36,7 +44,7 @@ JLDefaultMapper是默认提供的mapper，能让您在编写网络交互代码�
 4.利用CocoaPods机制，默认支持了JSONModel和Mantle
 
 
-用法：在网络请求类中实现responseMapper方法，并return JLDefaultMapper对象
+用法：在网络请求类中实现responseMapper方法，并返回JLDefaultMapper对象
 
     -(id<JLNetworkingReqResponseMapper>)responseMapper
     {
@@ -78,7 +86,7 @@ JLDefaultMapper是默认提供的mapper，能让您在编写网络交互代码�
         //Model为JSONModel或MTLModel的子类
         return [JLDefaultMapper mapperWithClassName:NSStringFromClass([Model class])];
     }
-使用CocoaPods为工程引入JSONModel和MTLModel，只需在Podfile增加如下两行
+使用CocoaPods为工程引入JSONModel和Mantle，只需在Podfile增加如下两行
 
     pod "JSONModel"
     pod "Mantle"
@@ -109,3 +117,7 @@ JLDefaultMapper是默认提供的mapper，能让您在编写网络交互代码�
     }
 如果请求成功，则返回给外部的数据为 @"生日是 1987-08-25"。
 
+
+<!-- external links -->
+[AFNetworking]:https://github.com/AFNetworking/AFNetworking
+[田伟宇(Casa Taloyum)]http://casatwy.com/
