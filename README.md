@@ -20,7 +20,62 @@ AFNetworking。
 
 您的每个网络请求都需要继承`JLNetworkingReq`类，并实现`JLNetworkingReqBase`协议中的必须方法，每个网络请求都是一个类对象。
 
+* 申明一个请求类
 
+    @interface DemoReq : JLNetworkingReq <JLNetworkingReqBase>
+    @end
+    
+    @implementation DemoReq
+
+    - (NSString *)baseUrl
+    {
+        return @"http://www.kuaidi100.com";
+    }
+
+    - (NSString *)pathUrl
+    {
+        return @"query";
+    }
+
+    - (JLNetworkingRequestType)requestType
+    {
+        //是一个Get请求
+        return JLNetworkingRequestTypeGet;
+    }
+    @end
+* 使用
+
+    - (void)viewDidLoad
+    {
+        DemoReq *req = [DemoReq new];
+        [req sendWithParams:@{@"type":@"shunfeng", @"postid":@(991849911763)} success:^(id responseObject) {
+            NSLog(@"%@", responseObject);
+        } failure:^(NSError *error) {
+            NSLog(@"%@", error);
+        }];
+    }
+    
+为了让调用者更加清晰的知道需要传入的参数，建议为网络请求类增加一个发起访问的方法
+
+    - (void)sendWithType:(NSString *)type
+    postId:(NSNumber*)postId
+    success:(JLNetworkingCompletedBlock)success
+    failure:(JLNetworkingFailedBlock)failure
+        {
+        NSDictionary *params = @{@"type" : type,
+        @"postid" : postId};
+        [self sendWithParams:params success:success failure:failure];
+    } 
+* 使用
+
+    - (void)viewDidLoad
+    {
+        [req sendWithType:@"shunfeng" postId:@(991849911763) success:^(id responseObject) {
+            NSLog(@"%@", responseObject);
+        } failure:^(NSError *error){
+            NSLog(@"%@", error);
+        }];
+    }
 
 ## Mapper
 
@@ -34,6 +89,7 @@ JLNetworkingReqResponseMapper协议，支持将网络请求的返回数据进行
         //CustomMapper为实现了JLNetworkingReqResponseMapper协议的类
         return [CustomMapper alloc] init];
     }
+
 
 
 ### 使用JLDefaultMapper
