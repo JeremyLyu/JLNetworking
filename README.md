@@ -120,4 +120,4 @@ JLDefaultMapper是默认提供的mapper，能让您在编写网络交互代码�
 
 <!-- external links -->
 [AFNetworking]:https://github.com/AFNetworking/AFNetworking
-[田伟宇(Casa Taloyum)]http://casatwy.com/
+[田伟宇(Casa Taloyum)]:http://casatwy.com/
