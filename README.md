@@ -68,5 +68,15 @@ JLDefaultMapper是默认提供的mapper，能让您在编写网络交互代码�
         return [JLDefaultMapper mapperWithClassName:NSStringFromClass([Entity class]) dataPath:@"data.info"];
     }
 
+##### 在JSONModel与Mantle支持
 
+如果您在使用JSONModel或者Mantle，并且使用了CocoaPods将它们引用到工程中。那么JLDefaultMapper已经默认支持将返回数据映射
+成JSModel或Mantle的子类对象，不需要您编写相关的支持代码代码。
 
+    -(id<JLNetworkingReqResponseMapper>)responseMapper
+    {
+        //Model为JSONModel或MTLModel的子类
+        return [JLDefaultMapper mapperWithClassName:NSStringFromClass([Model class])];
+    }
+
+如果您不是使用CocoaPods的方式将JSONModel或者Mantle引用到工程，但是又希望JLDefaultMapper能对它们进行支持，那么只需为JSONModel或Mantel增加一个实现JLDefautMapperProtocol的Category，或者在在它们的子类实现这个协议即可。
