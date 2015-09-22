@@ -1,19 +1,26 @@
 # JLNetworking
 
-Wiki还在搭建中
+* _(:3」∠)_。。。Wiki还在搭建中 *
 
-JLNetworking是基于AFNetworking封装的轻量级iOS网络库，希望提供一种对WebAPI 方便、可靠的访问方式。
-它的设计遵循“易用、简洁、易扩展”的思想
+JLNetworking是基于AFNetworking封装的轻量级iOS网络库，希望提供一种对WebAPI方便、可靠的访问方式。
+它的设计遵循“易用、简洁、易扩展”的思想。
 
-#### 感谢
+### 感谢
 感谢 [AFNetworking] 的维护人员 和 [田伟宇(Casa Taloyum)] 的无私工作与分享。
 
-#### 将JLNetworking引用到项目
+### 将JLNetworking引用到项目
 1.建议使用CocoaPods，在您的工程的Podfile中添加以下代码即可
+
     pod 'JLNetworking', :git => 'https://github.com/JeremyLyu/JLNetworking.git'
 
 2.将代码下载到本地，然后将Classes目录手动添加到您的工程中。由于是基于AFNetworking的封装，你的工程中需要引入
 AFNetworking。
+
+##使用方法
+
+您的每个网络请求都需要继承`JLNetworkingReq`类，并实现`JLNetworkingReqBase`协议中的必须方法，每个网络请求都是一个类对象。
+
+
 
 ## Mapper
 
@@ -102,7 +109,7 @@ JLDefaultMapper是默认提供的mapper，能让您在编写网络交互代码�
         /*WebAPI返回的数据
         {
             retData =     {
-                address = "\U6e56\U5317\U7701\U6b66\U6c49\U5e02\U6b66\U660c\U533a";
+                address = "某省某市某街道某号";
                 birthday = "1987-08-25";
                 sex = F;
             };
@@ -120,4 +127,4 @@ JLDefaultMapper是默认提供的mapper，能让您在编写网络交互代码�
 
 <!-- external links -->
 [AFNetworking]:https://github.com/AFNetworking/AFNetworking
-[田伟宇(Casa Taloyum)]:http://casatwy.com/
+[田伟宇(Casa Taloyum)]:http://casatwy.com/pages/about-me.html
