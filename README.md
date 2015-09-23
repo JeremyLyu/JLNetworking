@@ -1,6 +1,6 @@
 # JLNetworking
 
-###### _(:3」∠)_。。。Wiki还在搭建中 
+###### _(:3」∠)_。。。Wiki不断完善中 
 
 JLNetworking是基于AFNetworking封装的轻量级iOS网络库，希望提供一种对WebAPI方便、可靠的访问方式。
 它的设计遵循“易用、简洁、易扩展”的思想。
@@ -42,11 +42,12 @@ AFNetworking。
         //是一个GET请求
         return JLNetworkingRequestTypeGet;
     }
-    @end
-  使用
+    @end 
 
+    //调用
     - (void)viewDidLoad
     {
+        [super viewDidLoad];
         DemoReq *req = [DemoReq new];
         [req sendWithParams:@{@"type":@"shunfeng", @"postid":@(991849911763)} success:^(id responseObject) {
             NSLog(@"%@", responseObject);
@@ -61,21 +62,96 @@ AFNetworking。
     postId:(NSNumber*)postId
     success:(JLNetworkingCompletedBlock)success
     failure:(JLNetworkingFailedBlock)failure
-        {
-        NSDictionary *params = @{@"type" : type,
-        @"postid" : postId};
+    {
+        NSDictionary *params = @{@"type" : type,@"postid" : postId};
         [self sendWithParams:params success:success failure:failure];
     } 
-  使用
-
+    
+    //调用
     - (void)viewDidLoad
     {
+        [super viewDidLoad];
+        DemoReq *req = [DemoReq new];
         [req sendWithType:@"shunfeng" postId:@(991849911763) success:^(id responseObject) {
             NSLog(@"%@", responseObject);
         } failure:^(NSError *error){
             NSLog(@"%@", error);
         }];
     }
+
+#### 添加Header
+
+很多WebAPI要求把一些信息放在Header里面的，只需为请求对象设置header属性即可
+
+    @implementation DemoReq
+
+    - (instancetype)init
+    {
+        self = [super init];
+        if(self)
+        {
+            self.headerDict = @{@"apikey" : @"98f826217b723c9834f341a810e1a67c"};
+        }
+        return self;
+    }
+
+    - (NSString *)baseUrl
+    {
+        return @"http://apis.baidu.com";
+    }
+
+    - (NSString *)pathUrl
+    {
+        return @"apistore/idservice/id";
+    }
+
+    - (void)sendWithId:(NSNumber *)idNum
+    success:(JLNetworkingCompletedBlock)success
+    failure:(JLNetworkingFailedBlock)failure
+    {
+        NSDictionary *params = @{@"id" : idNum};
+        [self sendWithParams:params success:success failure:failure];
+    }
+
+    @end
+    
+    //调用
+    - (void)viewDidLoad
+    {
+        [super viewDidLoad];
+        DemoReq *req = [DemoReq new];
+        //也可以在外部设置 req.headerDict = @{@"apikey" : @"98f826217b723c9834f341a810e1a67c"};
+        [req sendWithId:@(420106198708257767) success:^(id responseObject) {
+            NSLog(@"%@", responseObject);
+        } failure:^(NSError *error) {
+            NSLog(@"%@", error);
+        }];
+    }
+    
+#### 上传数据或文件
+
+一个JLNetworkingMutiDataObj对象，对应一份需要上传的 数据/文件 信息。默认 mimeType 为 image/jpg，fileName 为 file.jpg，支持一次上传一组数据。
+
+    - (void)viewDidLoad
+    {
+        NSString *avatarPath = [[NSBundle mainBundle] pathForResource:@"avatar" ofType:@"jpg"];
+        JLNetworkingMultiDataObj *uploadObj = [JLNetworkingMultiData obj new];
+        uploadObj.name = @"avatar";
+        //如果数据太大也建议是用filePath的方式
+        //updataObj.filePath = avatarPath;
+        uploadObj.data = [NSData dataWithContentsOfFile:avatarPath];;
+
+        DemoReq *req = [DemoReq new];
+        [req sendWithParams:@{@"userId" : @"123456789"} multipartFormData:uploadObj success:^(id responseObject) {
+            NSLog(@"%@", responseObject);
+        } failure:^(NSError *error) {
+            NSLog(@"%@", error);
+        }];
+    }
+
+#### 其他的功能
+
+除开上面的那些基础请求功能外，`JLNetworkingReq`的对象还支持 设置请求超时、参数校验、返回数据校验、参数签名、钩子方法和返回数据映射。这里就不一一描述，您可以通过查看Demo，来了解它们的具体用法。
 
 ## Mapper
 
@@ -89,8 +165,6 @@ JLNetworkingReqResponseMapper协议，支持将网络请求的返回数据进行
         //CustomMapper为实现了JLNetworkingReqResponseMapper协议的类
         return [CustomMapper alloc] init];
     }
-
-
 
 ### 使用JLDefaultMapper
 

@@ -45,7 +45,7 @@
 @property (nonatomic, weak) id<JLNetworkingReqSignature> signature;     //用于请求前，参数签名的代理
 @property (nonatomic, weak) id<JLNetworkingReqHook> hook; //外部钩子，可以在这里面做点日志记录啊什么的
 
-//TODO: 请求Cache的代理。这个东西，感觉还是很有必要
+//TODO: 请求Cache。这个东西，感觉还是很有必要
 
 /**
  *  发送请求

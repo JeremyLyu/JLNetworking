@@ -36,8 +36,11 @@
             break;
         case 1002:
         {
+            NSString *avatarPath = [[NSBundle mainBundle] pathForResource:@"avatar" ofType:@"jpg"];
+            [NSData dataWithContentsOfFile:avatarPath];
             //带消息头的请求
             DemoReq1 *req = [DemoReq1 new];
+            
             //也可以在外部设置 req.headerDict = @[];
             [req sendWithId:@(420106198708257767) success:^(id responseObject) {
                 NSLog(@"%@", responseObject);
