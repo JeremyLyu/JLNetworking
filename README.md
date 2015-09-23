@@ -1,6 +1,6 @@
 # JLNetworking
 
-###### _(:3」∠)_。。。Wiki不断完善中 
+###### __(:3」∠)__。。。Wiki不断完善中 
 
 JLNetworking是基于AFNetworking封装的轻量级iOS网络库，希望提供一种对WebAPI方便、可靠的访问方式。
 它的设计遵循“易用、简洁、易扩展”的思想。
@@ -130,7 +130,7 @@ AFNetworking。
     
 #### 上传数据或文件
 
-一个JLNetworkingMutiDataObj对象，对应一份需要上传的 数据/文件 信息。默认 mimeType 为 image/jpg，fileName 为 file.jpg，支持一次上传一组数据。
+一个`JLNetworkingMutiDataObj`对象，对应一份需要上传的 数据/文件 信息。默认 mimeType 为 image/jpg，fileName 为 file.jpg，支持一次上传一组数据。
 
     - (void)viewDidLoad
     {
@@ -155,7 +155,7 @@ AFNetworking。
 
 ## Mapper
 
-JLNetworkingReqResponseMapper协议，支持将网络请求的返回数据进行自定义处理后再传递给外部，比如
+`JLNetworkingReqResponseMapper`协议，支持将网络请求的返回数据进行自定义处理后再传递给外部，比如
 将返回NSDictionary对象转换成自定义类对象，以方便使用。
 
 用法：在网络请求类中实现responseMapper方法
@@ -168,7 +168,7 @@ JLNetworkingReqResponseMapper协议，支持将网络请求的返回数据进行
 
 ### 使用JLDefaultMapper
 
-JLDefaultMapper是默认提供的mapper，能让您在编写网络交互代码时更加安逸。
+`JLDefaultMapper`是默认提供的mapper，能让您在编写网络交互代码时更加安逸。
 
 它支持以下功能：
 
@@ -178,17 +178,17 @@ JLDefaultMapper是默认提供的mapper，能让您在编写网络交互代码�
 
 3.设置需要处理的内容在返回的数据中的路径。
 
-4.利用CocoaPods机制，默认支持了JSONModel和Mantle
+4.利用CocoaPods机制，默认支持了[JSONModel]和[Mantle]
 
 
-用法：在网络请求类中实现responseMapper方法，并返回JLDefaultMapper对象
+用法：在网络请求类中实现responseMapper方法，并返回`JLDefaultMapper`对象
 
     -(id<JLNetworkingReqResponseMapper>)responseMapper
     {
         //Entity为实现了JLDefaultMapperProtocol协议的类
         return [JLDefaultMapper mapperWithClassName:NSStringFromClass([Entity class])];
     }
-设置处理数据的路径：JLDefaultMapper默认会将返回的NSDictionary下data字段对应的数据进行处理，但是有时候实际数据会放在各种千奇百怪的地方，这个时候就需要您自己设置数据路径。
+设置处理数据的路径：`JLDefaultMapper`默认会将返回的NSDictionary下data字段对应的数据进行处理，但是有时候实际数据会放在各种千奇百怪的地方，这个时候就需要您自己设置数据路径。
 
 假设当前访问的WebAPI返回数据如下
 
@@ -215,7 +215,7 @@ JLDefaultMapper是默认提供的mapper，能让您在编写网络交互代码�
 
 ##### 对JSONModel与Mantle的支持
 
-如果您在使用JSONModel或者Mantle，并且使用了CocoaPods将它们引用到工程中。那么JLDefaultMapper已经默认支持将返回数据映射
+如果您在使用[JSONModel]或者[Mantle]，并且使用了CocoaPods将它们引用到工程中。那么JLDefaultMapper已经默认支持将返回数据映射
 成JSModel或Mantle的子类对象，不需要您编写相关的支持代码代码。
 
     -(id<JLNetworkingReqResponseMapper>)responseMapper
@@ -232,7 +232,7 @@ JLDefaultMapper是默认提供的mapper，能让您在编写网络交互代码�
 
 ##### 更灵活的映射方式
 
-有时候，我们希望能对返回数据做更灵活的处理，可以转化成任意的类型传递给外部，JLDefaultMapper提供更灵活的方式
+有时候，我们希望能对返回数据做更灵活的处理，可以转化成任意的类型传递给外部，`JLDefaultMapper`提供更灵活的方式
 
     - (id<JLNetworkingReqResponseMapper>)responseMapper
     {
@@ -258,3 +258,5 @@ JLDefaultMapper是默认提供的mapper，能让您在编写网络交互代码�
 <!-- external links -->
 [AFNetworking]:https://github.com/AFNetworking/AFNetworking
 [田伟宇(Casa Taloyum)]:http://casatwy.com/pages/about-me.html
+[JSONModel]:https://github.com/icanzilb/JSONModel
+[Mantle]:https://github.com/Mantle/Mantle
