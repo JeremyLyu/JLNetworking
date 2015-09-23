@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSObject (DLIntrospection)
-+ (NSArray *)classes;
-+ (NSArray *)properties;
-+ (NSString *)parentClassHierarchy;
+@interface JLSupport : NSObject
+
 @end

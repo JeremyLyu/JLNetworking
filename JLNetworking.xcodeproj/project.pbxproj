@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		29458D431B95A23A004E2DB0 /* DemoEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 29458D421B95A23A004E2DB0 /* DemoEntity.m */; };
 		29CA4ACE1B9449B2003F9704 /* DemoReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CA4ACD1B9449B2003F9704 /* DemoReq.m */; };
-		29CB85CB1B9C2930006C5644 /* NSObject+DLIntrospection.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CB85CA1B9C2930006C5644 /* NSObject+DLIntrospection.m */; };
+		29CB85CB1B9C2930006C5644 /* JLSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CB85CA1B9C2930006C5644 /* JLSupport.m */; };
 		29CB85D11B9C70EB006C5644 /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CB85CF1B9C70EB006C5644 /* DemoViewController.m */; };
 		29CB85D21B9C70EB006C5644 /* DemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29CB85D01B9C70EB006C5644 /* DemoViewController.xib */; };
 		29CB85D61B9D370C006C5644 /* JLDefaultMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CB85D51B9D370C006C5644 /* JLDefaultMapper.m */; };
@@ -42,8 +42,8 @@
 		29458D421B95A23A004E2DB0 /* DemoEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoEntity.m; sourceTree = "<group>"; };
 		29CA4ACC1B9449B2003F9704 /* DemoReq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoReq.h; sourceTree = "<group>"; };
 		29CA4ACD1B9449B2003F9704 /* DemoReq.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoReq.m; sourceTree = "<group>"; };
-		29CB85C91B9C2930006C5644 /* NSObject+DLIntrospection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DLIntrospection.h"; sourceTree = "<group>"; };
-		29CB85CA1B9C2930006C5644 /* NSObject+DLIntrospection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DLIntrospection.m"; sourceTree = "<group>"; };
+		29CB85C91B9C2930006C5644 /* JLSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLSupport.h; sourceTree = "<group>"; };
+		29CB85CA1B9C2930006C5644 /* JLSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JLSupport.m; sourceTree = "<group>"; };
 		29CB85CE1B9C70EB006C5644 /* DemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoViewController.h; sourceTree = "<group>"; };
 		29CB85CF1B9C70EB006C5644 /* DemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoViewController.m; sourceTree = "<group>"; };
 		29CB85D01B9C70EB006C5644 /* DemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DemoViewController.xib; sourceTree = "<group>"; };
@@ -110,8 +110,8 @@
 		29CB85C81B9C27A2006C5644 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				29CB85C91B9C2930006C5644 /* NSObject+DLIntrospection.h */,
-				29CB85CA1B9C2930006C5644 /* NSObject+DLIntrospection.m */,
+				29CB85C91B9C2930006C5644 /* JLSupport.h */,
+				29CB85CA1B9C2930006C5644 /* JLSupport.m */,
 			);
 			name = Support;
 			path = support;
@@ -344,7 +344,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				29D87E231B8EAA0A00BFEA54 /* JLNetworkingManager.m in Sources */,
-				29CB85CB1B9C2930006C5644 /* NSObject+DLIntrospection.m in Sources */,
+				29CB85CB1B9C2930006C5644 /* JLSupport.m in Sources */,
 				29CB85D61B9D370C006C5644 /* JLDefaultMapper.m in Sources */,
 				29458D431B95A23A004E2DB0 /* DemoEntity.m in Sources */,
 				29D87E001B8EA64A00BFEA54 /* AppDelegate.m in Sources */,
