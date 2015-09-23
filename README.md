@@ -16,7 +16,7 @@ JLNetworking是基于AFNetworking封装的轻量级iOS网络库，希望提供�
 2.将代码下载到本地，然后将Classes目录手动添加到您的工程中。由于是基于AFNetworking的封装，你的工程中需要引入
 AFNetworking。
 
-##使用方法
+## 使用方法
 
 您的每个网络请求都需要继承`JLNetworkingReq`类，并实现`JLNetworkingReqBase`协议中的必须方法，每个网络请求都是一个类对象。
 
@@ -254,6 +254,9 @@ AFNetworking。
     }
 如果请求成功，则返回给外部的数据为 @"生日是 1987-08-25"。
 
+## 支持作者
+
+点击页面顶部的 `★star` 或提交 `Issues` `Pull requests`，会给作者带来极大鼓舞 (｡・`ω´･)
 
 <!-- external links -->
 [AFNetworking]:https://github.com/AFNetworking/AFNetworking
