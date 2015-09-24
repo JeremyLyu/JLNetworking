@@ -1,8 +1,8 @@
 # JLNetworking
 
-###### _(:3」∠)。。。Wiki不断完善中 
+###### _(:3」∠)。。。现在初版，还在不断完善中 
 
-JLNetworking是基于AFNetworking封装的轻量级iOS网络库，希望提供一种对WebAPI方便、可靠的访问方式。
+JLNetworking是基于AFNetworking封装的iOS网络库，希望提供一种对WebAPI方便、可靠的访问方式。
 它的设计遵循“易用、简洁、易扩展”的思想。
 
 ### 感谢
@@ -59,9 +59,9 @@ AFNetworking。
   为了让调用者更加清晰的知道需要传入的参数，建议为网络请求类增加一个发起访问的方法
 
     - (void)sendWithType:(NSString *)type
-    postId:(NSNumber*)postId
-    success:(JLNetworkingCompletedBlock)success
-    failure:(JLNetworkingFailedBlock)failure
+                  postId:(NSNumber*)postId
+                 success:(JLNetworkingCompletedBlock)success
+                 failure:(JLNetworkingFailedBlock)failure
     {
         NSDictionary *params = @{@"type" : type,@"postid" : postId};
         [self sendWithParams:params success:success failure:failure];
