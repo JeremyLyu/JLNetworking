@@ -59,9 +59,9 @@ AFNetworking。
   为了让调用者更加清晰的知道需要传入的参数，建议为网络请求类增加一个发起访问的方法
 
     - (void)sendWithType:(NSString *)type
-    postId:(NSNumber*)postId
-    success:(JLNetworkingCompletedBlock)success
-    failure:(JLNetworkingFailedBlock)failure
+                  postId:(NSNumber*)postId
+                 success:(JLNetworkingCompletedBlock)success
+                 failure:(JLNetworkingFailedBlock)failure
     {
         NSDictionary *params = @{@"type" : type,@"postid" : postId};
         [self sendWithParams:params success:success failure:failure];
