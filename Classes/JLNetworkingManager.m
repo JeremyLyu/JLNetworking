@@ -200,13 +200,22 @@ static const NSTimeInterval JLNetworkingDefaultTimeoutInterval = 30;
     NSString *method;
     switch (requestType) {
         case JLNetworkingRequestTypeGet:
+            if([self.mainOperationManager.requestSerializer isKindOfClass:[AFJSONRequestSerializer class]]){
+                self.mainOperationManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+            }
             method = @"GET";
             break;
         case JLNetworkingRequestTypePost:
+            if([self.mainOperationManager.requestSerializer isKindOfClass:[AFJSONRequestSerializer class]]){
+                self.mainOperationManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+            }
             method = @"POST";
             break;
-        default:
-            method = @"GET";
+        case JLNetworkingRequestTypeJSONPost:
+            if([self.mainOperationManager.requestSerializer isKindOfClass:[AFJSONRequestSerializer class]] == NO){
+                self.mainOperationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+            }
+            method = @"POST";
             break;
     }
     NSMutableURLRequest *request = [self.mainOperationManager.requestSerializer requestWithMethod:method URLString: URLString parameters:params error:nil];

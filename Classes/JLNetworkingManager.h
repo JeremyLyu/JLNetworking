@@ -11,7 +11,8 @@
 typedef NS_ENUM(NSInteger, JLNetworkingRequestType)
 {
     JLNetworkingRequestTypeGet,
-    JLNetworkingRequestTypePost
+    JLNetworkingRequestTypePost,
+    JLNetworkingRequestTypeJSONPost
 };
 
 //请求成功的回调
