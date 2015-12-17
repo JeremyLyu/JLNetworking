@@ -164,7 +164,7 @@ static const NSTimeInterval JLNetworkingDefaultTimeoutInterval = 30;
         
         //判断是不是JSON
         NSError *error = nil;
-        if([self.JSONResponseSerializer validateResponse:operation.responseObject data:responseObject error:nil]) {
+        if([self.JSONResponseSerializer validateResponse:operation.response data:responseObject error:nil]) {
             responseObject = [self.JSONResponseSerializer responseObjectForResponse:operation.response data:responseObject error:&error] ;
         }
         //回调
