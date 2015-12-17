@@ -43,7 +43,15 @@
               success:(JLNetworkingCompletedBlock)success
               failure:(JLNetworkingFailedBlock)failure
 {
-    [self sendWithParams:params multipartFormData:nil success:success failure:failure];
+    [self sendWithParams:params multipartFormData:nil success:success progress:nil failure:failure];
+}
+
+- (void)sendWithParams:(NSDictionary *)params
+               success:(JLNetworkingCompletedBlock)success
+              progress:(JLNetworkingProgressBlock)progress
+               failure:(JLNetworkingFailedBlock)failure
+{
+    [self sendWithParams:params multipartFormData:nil success:success progress:progress failure:failure];
 }
 
 - (void)sendWithParams:(NSDictionary *)params
@@ -51,6 +59,14 @@
                success:(JLNetworkingCompletedBlock)success
                failure:(JLNetworkingFailedBlock)failure
 {
+    [self sendWithParams:params multipartFormData:multiDataObj success:success progress:nil failure:failure];
+}
+
+- (void)sendWithParams:(NSDictionary *)params
+     multipartFormData:(JLNetworkingMultiDataObj *)multiDataObj
+               success:(JLNetworkingCompletedBlock)success
+              progress:(JLNetworkingProgressBlock)progress
+               failure:(JLNetworkingFailedBlock)failure {
     //TODO: 想一下对 isLoading 进行线程保护的必要性。貌似这种情况，必要性不是很大
     if(self.isLoading)
     {
@@ -100,16 +116,18 @@
                                           multipartFormData:multiDataObj
                                                  headerDict:self.headerDict
                                                     timeout:timeoutInterval
-                                                    success:^(id responseObject)
-    {
-        weakSelf.isLoading = NO;
-        
-        [weakSelf responseWithSuccess:success failure:failure responseObject:responseObject];
-    } failure:^(NSError *error) {
-        weakSelf.isLoading = NO;
-        
-        [weakSelf responseWithFailure:failure error:error];
-    }];
+                                                    success:^(id responseObject) {
+                                                        weakSelf.isLoading = NO;
+
+                                                        [weakSelf responseWithSuccess:success failure:failure responseObject:responseObject];
+                                                    }
+                                                   progress:progress
+                                                    failure:^(NSError *error) {
+                                                        weakSelf.isLoading = NO;
+         
+                                                        [weakSelf responseWithFailure:failure error:error];
+                                                    }];
+    
 }
 
 - (void)cancel

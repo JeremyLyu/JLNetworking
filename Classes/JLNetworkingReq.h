@@ -62,6 +62,20 @@
  *  发送请求
  *
  *  @param params   参数
+ *  @param success 请求成功的回调
+ *  @param progress 进度的回调
+ *  @param failure 请求失败的回调
+ */
+- (void)sendWithParams:(NSDictionary *)params
+               success:(JLNetworkingCompletedBlock)success
+              progress:(JLNetworkingProgressBlock)progress
+               failure:(JLNetworkingFailedBlock)failure;
+
+
+/**
+ *  发送请求
+ *
+ *  @param params   参数
  *  @param multiDataObj JLNetworkingMultiDataObj对象，用于上传文件或数据
  *  @param success 请求成功的回调
  *  @param failure 请求失败的回调
@@ -69,6 +83,21 @@
 - (void)sendWithParams:(NSDictionary *)params
      multipartFormData:(JLNetworkingMultiDataObj *)multiDataObj
                success:(JLNetworkingCompletedBlock)success
+               failure:(JLNetworkingFailedBlock)failure;
+
+/**
+ *  发送请求
+ *
+ *  @param params   参数
+ *  @param multiDataObj JLNetworkingMultiDataObj对象，用于上传文件或数据
+ *  @param success 请求成功的回调
+ *  @param progress 进度的回调
+ *  @param failure 请求失败的回调
+ */
+- (void)sendWithParams:(NSDictionary *)params
+     multipartFormData:(JLNetworkingMultiDataObj *)multiDataObj
+               success:(JLNetworkingCompletedBlock)success
+              progress:(JLNetworkingProgressBlock)progress
                failure:(JLNetworkingFailedBlock)failure;
 
 

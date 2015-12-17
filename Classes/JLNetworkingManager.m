@@ -116,6 +116,7 @@ static const NSTimeInterval JLNetworkingDefaultTimeoutInterval = 30;
                   headerDict:nil
                      timeout:timeoutInterval
                      success:success
+                    progress:nil
                      failure:failure];
 }
 
@@ -128,15 +129,18 @@ static const NSTimeInterval JLNetworkingDefaultTimeoutInterval = 30;
                 headerDict:(NSDictionary *)headerDict
                    timeout:(NSTimeInterval)timeoutInterval
                    success:(JLNetworkingCompletedBlock)success
+                  progress:(JLNetworkingProgressBlock)progress
                    failure:(JLNetworkingFailedBlock)failure
 {
     if(requestObj == nil) return ;
     NSNumber *requestId = [self getRequestId];
     [requestObj setRequestId:requestId];
     NSMutableURLRequest *request;
+    BOOL isUpload = NO;
     if(multiDataObj)
     {
         request = [self getRequestWithURLString:URLString requestType:requestType params:params multipartFormData:requestObj timeout:timeoutInterval];
+        isUpload = YES;
     }
     else
     {
@@ -165,6 +169,12 @@ static const NSTimeInterval JLNetworkingDefaultTimeoutInterval = 30;
         [weakSelf.requestIdDict removeObjectForKey:requestId];
         [weakSelf.requestList removeObject:requestObj];
     }];
+    if(isUpload) {
+        [operation setUploadProgressBlock:progress];
+    } else {
+        [operation setDownloadProgressBlock:progress];
+    }
+        
     [self.requestList addObject:requestObj];
     self.requestIdDict[requestId] = operation;
     [self.mainOperationManager.operationQueue addOperation:operation];

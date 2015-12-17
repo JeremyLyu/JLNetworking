@@ -20,6 +20,8 @@ typedef void(^JLNetworkingCompletedBlock)(id responseObject);
 //请求失败的回调
 typedef void(^JLNetworkingFailedBlock)(NSError *error);
 
+typedef void(^JLNetworkingProgressBlock)(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead);
+
 //协议：使用JLNetworking的来做请求管理的对象都必须满足此协议
 @protocol JLNetworkingRequestIdProtocol <NSObject>
 
@@ -83,6 +85,7 @@ typedef void(^JLNetworkingFailedBlock)(NSError *error);
  *  @param headerDict      请求头
  *  @param timeoutInterval 超时
  *  @param success         成功的回调
+ *  @param progress        进度的回调
  *  @param failure         失败的回调
  */
 - (void)sendWithRequestObj:(id<JLNetworkingRequestIdProtocol>)requestObj
@@ -93,6 +96,7 @@ typedef void(^JLNetworkingFailedBlock)(NSError *error);
                 headerDict:(NSDictionary *)headerDict
                    timeout:(NSTimeInterval)timeoutInterval
                    success:(JLNetworkingCompletedBlock)success
+                  progress:(JLNetworkingProgressBlock)progress
                    failure:(JLNetworkingFailedBlock)failure;
 
 /**
