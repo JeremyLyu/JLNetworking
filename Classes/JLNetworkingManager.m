@@ -60,7 +60,7 @@
 @property (nonatomic, strong) NSNumber *nextRequestId;
 
 @property (nonatomic, strong) AFHTTPRequestOperationManager *mainOperationManager;
-
+@property (nonatomic, strong) AFJSONResponseSerializer *JSONResponseSerializer;
 @end
 
 static const NSTimeInterval JLNetworkingDefaultTimeoutInterval = 30;
@@ -89,11 +89,14 @@ static const NSTimeInterval JLNetworkingDefaultTimeoutInterval = 30;
         //配置operationManager
         self.mainOperationManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:nil];
         self.mainOperationManager.requestSerializer.timeoutInterval = JLNetworkingDefaultTimeoutInterval;
+        self.mainOperationManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        self.JSONResponseSerializer = [AFJSONResponseSerializer serializer];
         //TODO: LXJ 是否真的应该添加这个兼容性代码，这原本使用来兼容一些返回JSON的API不规范的contentType
         //暂且写在这里吧，谁叫国内写接口的服务器程序员都这么炫呢。╮(╯▽╰)╭
-        [self.mainOperationManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"text/html",
+        [self.JSONResponseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"text/html",
                                                                                  @"text/json",
                                                                                  @"application/json",
+                                                                                 @"text/javascript",
                                                                                  @"text/plain", nil]];
     }
     return self;
@@ -158,8 +161,18 @@ static const NSTimeInterval JLNetworkingDefaultTimeoutInterval = 30;
     //TODO: 这里有点问题，在operation的callbackBlock会保持requestObj，是否有必要在用字典来统一保持requestObj和operation
     AFHTTPRequestOperation *operation = [self.mainOperationManager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //TODO: LXJ 打印Log
-        if(success) success(responseObject);
         
+        //判断是不是JSON
+        NSError *error = nil;
+        if([self.JSONResponseSerializer validateResponse:operation.responseObject data:responseObject error:nil]) {
+            responseObject = [self.JSONResponseSerializer responseObjectForResponse:operation.response data:responseObject error:&error] ;
+        }
+        //回调
+        if(error) {
+            if(failure) failure(error);
+        } else {
+            if(success) success(responseObject);
+        }
         [weakSelf.requestIdDict removeObjectForKey:requestId];
         [weakSelf.requestList removeObject:requestObj];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
