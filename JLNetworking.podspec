@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'Networking' do |ss|
     ss.source_files = "Classes/*.{h,m}"
-    ss.dependency 'AFNetworking'
+    ss.dependency 'AFNetworking', '~> 2.4.1'
     end
 
     s.subspec 'Support' do |ss|
