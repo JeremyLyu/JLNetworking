@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "JLNetworking"
-  s.version      = "1.0.1"
+  s.version      = "1.0.2"
   s.summary      = "JLNetworking is a light network framework"
 
   s.description  = <<-DESC
@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/JeremyLyu/JLNetworking"
   s.license      = "MIT"
   s.author             = { "JeremyLyu" => "734875137@qq.com" }
-  s.source       = { :git => "https://github.com/JeremyLyu/JLNetworking.git", :tag => "1.0.1" }
+  s.source       = { :git => "https://github.com/JeremyLyu/JLNetworking.git", :tag => "1.0.2" }
   s.requires_arc = true
   s.platform = :ios
   s.ios.deployment_target = "7.0"
