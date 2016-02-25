@@ -11,7 +11,7 @@ JLNetworking是基于AFNetworking封装的iOS网络库，希望提供一种对We
 ### 将JLNetworking引用到项目
 1.建议使用CocoaPods，在您的工程的Podfile中添加以下代码即可
 
-    pod 'JLNetworking', :git => 'https://github.com/JeremyLyu/JLNetworking.git'
+    pod 'JLNetworking'
 
 2.将代码下载到本地，然后将Classes目录手动添加到您的工程中。由于是基于AFNetworking的封装，你的工程中需要引入
 AFNetworking。
