@@ -30,8 +30,8 @@ Pod::Spec.new do |s|
     ss.source_files = "Classes/Support/*.{h,m}"
     end
 
-    s.subspec 'Mapper' do |ss|
-    ss.source_files = "Classes/Mapper/*.{h,m}"
+    s.subspec 'Default' do |ss|
+    ss.source_files = "Classes/Default/*.{h,m}"
     ss.dependency 'JLNetworking/Networking'
     end
 
