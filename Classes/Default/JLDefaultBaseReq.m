@@ -26,7 +26,7 @@
 }
 
 - (JLNetworkingRequestType)requestType {
-    return JLNetworkingRequestTypeJSONPost;
+    return JLNetworkingRequestTypePost;
 }
 
 #pragma mark - Response
