@@ -13,6 +13,9 @@
 - (instancetype)init {
     self = [super init];
     if(self) {
+        self.baseURL = @"";
+        self.pathURL = @"";
+        self.dataPath = @"data";
     }
     return self;
 }
