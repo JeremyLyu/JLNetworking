@@ -67,6 +67,14 @@
                success:(JLNetworkingCompletedBlock)success
               progress:(JLNetworkingProgressBlock)progress
                failure:(JLNetworkingFailedBlock)failure {
+    self.params = params;
+    self.multiDataObj = multiDataObj;
+    [self sendWithSuccess:success progress:progress failure:failure];
+}
+
+- (void)sendWithSuccess:(JLNetworkingCompletedBlock)success
+               progress:(JLNetworkingProgressBlock)progress
+                failure:(JLNetworkingFailedBlock)failure {
     //TODO: 想一下对 isLoading 进行线程保护的必要性。貌似这种情况，必要性不是很大
     if(self.isLoading)
     {
@@ -78,7 +86,7 @@
     //参数校验
     if([self.child respondsToSelector:@selector(isCorrectWithRequestParams:)])
     {
-        if([self.child isCorrectWithRequestParams:params] == NO)
+        if([self.child isCorrectWithRequestParams:self.params] == NO)
         {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSError *error = [NSError errorWithDomain:@"请求参数未能通过，正确性校验" code:NSURLErrorCannotParseResponse userInfo:nil];
@@ -88,15 +96,15 @@
         }
     }
     //发起请求前的拦截
-    NSDictionary *actualParams = [self beforeRequestWithParams:params];
+    NSDictionary *actualParams = [self beforeRequestWithParams:self.params];
     if([self.hook respondsToSelector:@selector(req:beforeRequestWithParams:)])
     {
         [self.hook req:self beforeRequestWithParams:[actualParams copy]];
     }
     //最后的参数签名
-    if([self.signature respondsToSelector:@selector(req:signRequestParams:)])
+    if([self.child respondsToSelector:@selector(signParams:)])
     {
-        actualParams = [self.signature req:self signRequestParams:actualParams];
+        actualParams = [self.child signParams:actualParams];
     }
     
     //请求地址
@@ -113,21 +121,20 @@
                                                   URLString:URLString
                                                 requestType:requestType
                                                      params:actualParams
-                                          multipartFormData:multiDataObj
+                                          multipartFormData:self.multiDataObj
                                                  headerDict:self.headerDict
                                                     timeout:timeoutInterval
                                                     success:^(id responseObject) {
                                                         weakSelf.isLoading = NO;
-
+                                                        weakSelf.responseObject = responseObject;
                                                         [weakSelf responseWithSuccess:success failure:failure responseObject:responseObject];
                                                     }
                                                    progress:progress
                                                     failure:^(NSError *error) {
                                                         weakSelf.isLoading = NO;
-         
+                                                        
                                                         [weakSelf responseWithFailure:failure error:error];
                                                     }];
-    
 }
 
 - (void)cancel
@@ -137,6 +144,7 @@
         [[JLNetworkingManager sharedManager] cancelRequest:self];
     }
 }
+
 
 #pragma mark - private
 

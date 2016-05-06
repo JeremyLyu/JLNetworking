@@ -40,9 +40,9 @@ typedef void(^JLNetworkingProgressBlock)(NSUInteger bytesRead, long long totalBy
 @property (nonatomic, strong) NSString* mimeType;
 
 @property (nonatomic, strong) NSString* filePath;
-//default：nil。 如果给data传值，则将忽略 fileURL
+//default：nil。 如果给data传值，则将忽略 filePath
 @property (nonatomic, strong) NSData* data;
-//default：nil。 如果给datas传值, 则忽略 fileUrl 和 data
+//default：nil。 如果给datas传值, 则忽略 filePath 和 data
 @property (nonatomic, strong) NSArray* datas;
 @end
 

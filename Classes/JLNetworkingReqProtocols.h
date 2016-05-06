@@ -13,21 +13,6 @@
  *  以下为 JLNetworkingReq 提供附加支持的一些协议
  */
 
-/****************************************************************************************/
-/*                       JLNetworkingReqSignature                                       */
-/*        签名协议:用于请求参数签名或者加密，它是在发起请求前对参数的最后一次修改                   */
-/****************************************************************************************/
-@protocol JLNetworkingReqSignature <NSObject>
-/**
- *  对参数进行签名的方法
- *
- *  @param params 请求参数
- *
- *  @return 进行了签名后的参数
- */
-- (NSDictionary *)req:(JLNetworkingReq *)req signRequestParams:(NSDictionary *)params;
-@end
-
 
 /****************************************************************************************/
 /*                    JLNetworkingReqResponseMapper                                     */

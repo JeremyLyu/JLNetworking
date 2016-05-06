@@ -182,6 +182,7 @@ static const NSTimeInterval JLNetworkingDefaultTimeoutInterval = 30;
         [weakSelf.requestIdDict removeObjectForKey:requestId];
         [weakSelf.requestList removeObject:requestObj];
     }];
+    //进度
     if(isUpload) {
         [operation setUploadProgressBlock:progress];
     } else {

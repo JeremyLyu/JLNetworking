@@ -18,19 +18,33 @@
 - (NSString *)baseUrl;
 - (NSString *)pathUrl;
 - (JLNetworkingRequestType)requestType;
-//TODO: 添加debugURL的必要性，再考虑下
-
+//TODO: LXJ debugURL 与 CDNURL 考虑下iOS客户是否需要
 @optional
-//映射器方法，如果希望最终返回给外部的数据，是经过映射处理内容，请实现此方法
-- (id<JLNetworkingReqResponseMapper>)responseMapper;
 //超时
 - (NSTimeInterval)timeoutInterval;
+
 /*下面两个方法为输出输入正确检测方法，建议在实现。实际上有效的参数的检查，能够规避很多主逻辑上的错误，防止造成项目灾难*/
+//TODO: LXJ 校验方式可以整得方便使用点，命名不够精准
 //检验参数是否正确
 - (BOOL)isCorrectWithRequestParams:(NSDictionary *)params;
 //检验返回的内容是否正确
 - (BOOL)isCorrectWithResponseObject:(NSDictionary *)responseObject;
+
+/**
+ *  参数签名
+ *
+ *  @param params 请求的参数
+ *
+ *  @return 签名后的参数
+ */
+- (NSDictionary *)signParams:(NSDictionary *)params;
+//TODO: LXj 需要考虑下返回映射器对象是不是有点麻烦
+//映射器方法，如果希望最终返回给外部的数据，是经过映射处理内容，请实现此方法
+- (id<JLNetworkingReqResponseMapper>)responseMapper;
 @end
+
+
+
 
 
 /**************************************************************************************/
@@ -41,12 +55,26 @@
 @interface JLNetworkingReq : NSObject
 //请求头字典，默认为nil
 @property (nonatomic, strong) NSDictionary *headerDict;
-//TODO: 这个signature或许有点多余的样子。还是留着吧，保持一点灵活度╮(╯3╰)╭
-@property (nonatomic, weak) id<JLNetworkingReqSignature> signature;     //用于请求前，参数签名的代理
-@property (nonatomic, weak) id<JLNetworkingReqHook> hook; //外部钩子，可以在这里面做点日志记录啊什么的
+//请求参数，默认为nil
+@property (nonatomic, strong) NSDictionary *params;
+//上传数据对象，默认为nil
+@property (nonatomic, strong) JLNetworkingMultiDataObj *multiDataObj;
+//请求成功返回的对象
+@property (nonatomic, strong) id responseObject;
+//外部钩子，可以在这里面做点日志记录啊什么的
+//TODO: LXJ hook这个考虑丢个数组进去
+@property (nonatomic, weak) id<JLNetworkingReqHook> hook;
 
-//TODO: 请求Cache。这个东西，感觉还是很有必要
-
+/**
+ *  发送请求  此方法会使用请求对象的 headerDict、params、multiDataObj属性，如果需要传递这些内容请为它们赋值。
+ *
+ *  @param success  成功的回调
+ *  @param progress 进度回调
+ *  @param failure  失败的回调
+ */
+- (void)sendWithSuccess:(JLNetworkingCompletedBlock)success
+               progress:(JLNetworkingProgressBlock)progress
+                failure:(JLNetworkingFailedBlock)failure;
 /**
  *  发送请求
  *
