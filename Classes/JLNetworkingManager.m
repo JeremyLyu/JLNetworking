@@ -142,7 +142,7 @@ static const NSTimeInterval JLNetworkingDefaultTimeoutInterval = 30;
     BOOL isUpload = NO;
     if(multiDataObj)
     {
-        request = [self getRequestWithURLString:URLString requestType:requestType params:params multipartFormData:requestObj timeout:timeoutInterval];
+        request = [self getRequestWithURLString:URLString requestType:requestType params:params multipartFormData:multiDataObj timeout:timeoutInterval];
         isUpload = YES;
     }
     else

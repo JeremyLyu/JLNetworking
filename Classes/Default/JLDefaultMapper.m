@@ -8,56 +8,6 @@
 
 #import "JLDefaultMapper.h"
 
-/*
- * 利用cocoapods机制增加对JSONModel和Mantle的默认支持
- */
-/*****************************************************************************************/
-/*                    关于下面看起来有些蛋疼的代码的一点扯淡                                                    */
-//TODO: 晚点再扯
-/*****************************************************************************************/
-#ifdef COCOAPODS_POD_AVAILABLE_JSONModel
-#import "JSONModel.h"
-@interface JSONModel (JLDefaultMapper) <JLDefaultMapperProtocol>
-- (instancetype)entityWithDictionary:(NSDictionary *)dict;
-@end
-
-@implementation JSONModel (JLDefaultMapper)
-- (instancetype)entityWithDictionary:(NSDictionary *)dict
-{
-    NSError *error = nil;
-    id entity =[[self alloc] initWithDictionary:dict error:&error];
-    if(error)
-    {
-        //希望即使映射不成功，也能把原始的数据给返回给外部
-        entity = dict;
-    }
-    return entity;
-}
-@end
-#endif
-
-#ifdef COCOAPODS_POD_AVAILABLE_Mantle
-#import "Mantle.h"
-@interface MTLModel (JLDefaultMapper) <JLDefaultMapperProtocol>
-@end
-
-@implementation MTLModel (JLDefaultMapper)
-- (instancetype)entityWithDictionary:(NSDictionary *)dict
-{
-    NSError *error = nil;
-    id entity = [[self alloc] initWithDictionary:dict error:&error];
-    if(error)
-    {
-        //希望即使映射不成功，也能把原始数据返回给外部
-        entity = dict;
-    }
-    return entity;
-}
-@end
-#endif
-
-
-
 @interface JLDefaultMapper ()
 @property (nonatomic, strong) NSString *className;
 @property (nonatomic, strong) NSString *dataPath;
