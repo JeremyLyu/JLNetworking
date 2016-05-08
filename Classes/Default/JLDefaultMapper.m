@@ -16,36 +16,24 @@
 
 @implementation JLDefaultMapper
 
-+ (instancetype)mapperWithClassName:(NSString *)className
++ (id)mappedResponseObj:(id)responseObject className:(NSString *)className;
 {
-    return [JLDefaultMapper mapperWithClassName:className dataPath:@"data"];
+    return [JLDefaultMapper mappedResponseObj:responseObject className:className dataPath:@"data"];
 }
 
-+ (instancetype)mapperWithClassName:(NSString *)className dataPath:(NSString *)dataPath
++ (id)mappedResponseObj:(id)responseObject className:(NSString *)className dataPath:(NSString *)dataPath;
 {
     if(className == nil) return nil;
     JLDefaultMapper *mapper = [JLDefaultMapper new];
     mapper.dataPath = dataPath;
     mapper.className = className;
-    return mapper;
-}
-
-+ (instancetype)mapperWithTransformer:(id(^)(id responseObject))transformer
-{
-    JLDefaultMapper *mapper = [JLDefaultMapper new];
-    mapper.transformer = transformer;
-    return mapper;
+    return [mapper mapResponseObject:responseObject];
 }
 
 #pragma mark - JLNetworkingReqResponseMapper
 
-- (id)req:(JLNetworkingReq *)req mapResponseObject:(id)responseObject
+- (id)mapResponseObject:(id)responseObject
 {
-    //block的方法
-    if(self.transformer)
-    {
-        return self.transformer(responseObject);
-    }
     //类名映射entity的方式
     id newResponseObj = responseObject;
     if([responseObject isKindOfClass:[NSDictionary class]])
@@ -92,9 +80,15 @@
 {
     if(_className == nil) return propertyDict;
     Class entityClass = NSClassFromString(_className);
-    if(entityClass == NULL) return propertyDict;
+    if(entityClass == NULL){
+        NSLog(@"DefaultMapper: 未找到对应的类名的类");
+        return propertyDict;
+    }
     
-    if([entityClass conformsToProtocol:@protocol(JLDefaultMapperProtocol)] == NO) return propertyDict;
+    if([entityClass conformsToProtocol:@protocol(JLDefaultMapperProtocol)] == NO){
+        NSLog(@"DefaultMapper: 需要映射的类没有实现 'JLDefaultMapperProtocol' 协议");
+       return propertyDict;
+    }
     id entity = [[entityClass alloc] entityWithDictionary:propertyDict];
     entity = entity == nil ? propertyDict : entity;
     return entity;

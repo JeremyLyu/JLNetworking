@@ -46,11 +46,4 @@
 }
  */
 
-- (id<JLNetworkingReqResponseMapper>) responseMapper {
-    if(self.modelName.length > 0) {
-        return [JLDefaultMapper mapperWithClassName:self.modelName dataPath:self.dataPath];
-    } else {
-        return nil;
-    }
-}
 @end

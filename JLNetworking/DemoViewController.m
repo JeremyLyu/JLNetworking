@@ -9,6 +9,7 @@
 #import "DemoViewController.h"
 #import "DemoReq.h"
 #import "DemoEntity.h"
+#import "JLNetBatchRequest.h"
 
 @interface DemoViewController ()
 
@@ -51,7 +52,7 @@
             break;
         case 1003:
         {
-            //将成功的请求转为失败
+            //返回过滤
             DemoReq2 *req = [DemoReq2 new];
             [req sendWithType:@"shunfeng" postId:@(991849911763) success:nil
              failure:^(NSError *error) {
@@ -82,7 +83,54 @@
             DemoReq5 *req = [DemoReq5 new];
             [req sendWithId:@(420106198708257767) success:^(id responseObject) {
                 NSLog(@"%@", responseObject);
-            } failure:nil];
+            } failure:^(NSError *error) {
+                NSLog(@"%@", error);
+            }];
+        }
+            break;
+        case 1007:
+        {
+            JLNetworkingReq *req1 = [DemoReq reqWithType:@"shunfeng" postId:@(991849911763)];
+            JLNetworkingReq *req2 = [DemoReq4 reqWithId:@(420106198708257767)];
+            JLNetworkingReq *req3 = [DemoReq1 reqWithId:@(420106198708257766)];
+            JLNetBatchRequest *batchReq = [JLNetBatchRequest batchWithRequests:@[req1, req2, req3]];
+            [batchReq sendWithSuccess:^(NSArray *responseObjects) {
+                NSLog(@"%@", responseObjects);
+            } failure:^(NSError *error) {
+                NSLog(@"%@", error);
+            }];
+        }
+            break;
+        case 1008:
+        {
+            JLNetworkingReq *req1 = [DemoReq reqWithType:@"shunfen" postId:@(991849911763)];
+            JLNetworkingReq *req2 = [DemoReq1 reqWithId:@(420106198708257767)];
+            JLNetBatchRequest *batchReq = [JLNetBatchRequest batchWithRequests:@[req1, req2]];
+            [batchReq sendWithSuccess:^(NSArray *responseObjects) {
+                NSLog(@"%@", responseObjects);
+            } failure:^(NSError *error) {
+                NSLog(@"%@", error);
+            }];
+        }
+            break;
+        case 1009:
+        {
+            DemoReq6 *req = [DemoReq6 new];
+            [req sendWithId:@(420106198708257767) success:^(id responseObject) {
+                NSLog(@"%@", responseObject);
+            } failure:^(NSError *error) {
+                NSLog(@"%@", error);
+            }];
+        }
+            break;
+        case 1010:
+        {
+            DemoReq6 *req = [DemoReq6 new];
+            [req sendWithId:@(420106198708257766) success:^(id responseObject) {
+                NSLog(@"%@", responseObject);
+            } failure:^(NSError *error) {
+                NSLog(@"%@", error);
+            }];
         }
             break;
             

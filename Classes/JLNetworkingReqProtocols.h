@@ -14,22 +14,6 @@
  */
 
 
-/****************************************************************************************/
-/*                    JLNetworkingReqResponseMapper                                     */
-/*   数据映射协议：用于网络数据返回给外部前，做一次映射处理并将最终得到的新对象返回给外部             */
-/****************************************************************************************/
-@protocol JLNetworkingReqResponseMapper <NSObject>
-/**
- *  对网络返回的数据映射成新的对象
- *
- *  @param req            网络请求对象
- *  @param responseObject 用于映射的数据，建议为NSDictionary对象，这样便于处理
- *
- *  @return 映射后的数据
- */
-- (id)req:(JLNetworkingReq *)req mapResponseObject:(id)responseObject;
-@end
-
 
 /****************************************************************************************/
 /*                      JLNetworkingReqHook                                             */

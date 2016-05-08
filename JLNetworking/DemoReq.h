@@ -14,6 +14,10 @@
               postId:(NSNumber*)postId
              success:(JLNetworkingCompletedBlock)success
              failure:(JLNetworkingFailedBlock)failure;
+
++ (JLNetworkingReq *)reqWithType:(NSString *)type
+                          postId:(NSNumber *)postId;
+
 @end
 
 @interface DemoReq1 : JLNetworkingReq <JLNetworkingReqBase>
@@ -21,6 +25,8 @@
 - (void)sendWithId:(NSNumber *)idNum
            success:(JLNetworkingCompletedBlock)success
            failure:(JLNetworkingFailedBlock)failure;
+
++ (JLNetworkingReq *)reqWithId:(NSNumber *)idNum;
 @end
 
 @interface DemoReq2 : DemoReq
@@ -33,4 +39,7 @@
 @end
 
 @interface DemoReq5 : DemoReq1
+@end
+
+@interface DemoReq6 : DemoReq1
 @end

@@ -18,29 +18,33 @@
 - (NSString *)baseUrl;
 - (NSString *)pathUrl;
 - (JLNetworkingRequestType)requestType;
-//TODO: LXJ debugURL 与 CDNURL 考虑下iOS客户是否需要
-@optional
-//超时
-- (NSTimeInterval)timeoutInterval;
 
-/*下面两个方法为输出输入正确检测方法，建议在实现。实际上有效的参数的检查，能够规避很多主逻辑上的错误，防止造成项目灾难*/
-//TODO: LXJ 校验方式可以整得方便使用点，命名不够精准
-//检验参数是否正确
-- (BOOL)isCorrectWithRequestParams:(NSDictionary *)params;
+//以下为可选方法，如果有对应的功能需求，在实际的请求类中实现即可
+@optional
+//请求超时时长
+- (NSTimeInterval)timeoutInterval;
+//检验请求参数是否正确
+- (BOOL)validateRequestParams:(NSDictionary *)params;
 //检验返回的内容是否正确
-- (BOOL)isCorrectWithResponseObject:(NSDictionary *)responseObject;
+- (BOOL)validateResponseObject:(NSDictionary *)responseObject;
+//参数签名，返回签名后的参数字典
+- (NSDictionary *)signParams:(NSDictionary *)params;
 
 /**
- *  参数签名
+ *  过滤网络返回，有时候需要根据返回数据的内容，自行判断请求成功与否。
+ *  如果需要做以上的处理，请把判断是否成功的方法，写在这个方法里面。
  *
- *  @param params 请求的参数
+ *  @param reponseObject 返回的数据
  *
- *  @return 签名后的参数
+ *  @return NSError对象，默认返回为nil表示请求成功
  */
-- (NSDictionary *)signParams:(NSDictionary *)params;
-//TODO: LXj 需要考虑下返回映射器对象是不是有点麻烦
-//映射器方法，如果希望最终返回给外部的数据，是经过映射处理内容，请实现此方法
-- (id<JLNetworkingReqResponseMapper>)responseMapper;
+- (NSError *)filterResponseObject:(id)responseObject;
+
+//映射方法，如果希望最终返回给外部的数据，是经过映射处理内容，请实现此方法
+- (id)mapResponseObject:(id)responseObject;
+
+//开启请求缓存
+- (NSTimeInterval)cacheMaxExistenceTime;
 @end
 
 
@@ -59,8 +63,13 @@
 @property (nonatomic, strong) NSDictionary *params;
 //上传数据对象，默认为nil
 @property (nonatomic, strong) JLNetworkingMultiDataObj *multiDataObj;
+
 //请求成功返回的对象
-@property (nonatomic, strong) id responseObject;
+@property (nonatomic, strong, readonly) id responseObject;
+//请求成功返回进行映射后过的对象
+@property (nonatomic, strong, readonly) id responseMappedObject;
+
+
 //外部钩子，可以在这里面做点日志记录啊什么的
 //TODO: LXJ hook这个考虑丢个数组进去
 @property (nonatomic, weak) id<JLNetworkingReqHook> hook;
@@ -138,15 +147,6 @@
 /*************************************************************************************/
 /*  内部钩子(拦截)方法：子类如果希望在一些节点前后做点自定义操作，重载以下方法并先调用super        */
 /*************************************************************************************/
-/**
- *  将成功响应转为错误响应，有时候需要根据返回数据的内容，自行判断业务成功与否。
- *  如果需要做以上的处理，请把判断业务失败的方法，写在这个方法里面。
- *
- *  @param reponseObject 返回的数据
- *
- *  @return NSError对象，默认返回为nil，不需要做成功转错误的处理
- */
-- (NSError *)makeSuccessToFailureWithResponseObject:(id)reponseObject;
 
 /**
  *  在发送请求前做点操作

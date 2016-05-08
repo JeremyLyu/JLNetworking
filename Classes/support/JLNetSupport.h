@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface JLSupport : NSObject
+@interface JLNetSupport : NSObject
 
++ (NSString *)md5StringWithString:(NSString *)string;
++ (NSString *)appVersion;
 @end
