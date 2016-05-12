@@ -45,6 +45,7 @@
 		292D6BD81B905B7400119DCC /* JLNetworkingReqProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLNetworkingReqProtocols.h; sourceTree = "<group>"; };
 		29458D411B95A23A004E2DB0 /* DemoEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoEntity.h; sourceTree = "<group>"; };
 		29458D421B95A23A004E2DB0 /* DemoEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoEntity.m; sourceTree = "<group>"; };
+		294B36BE1CE4E38E00491889 /* JLNetworking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JLNetworking.h; sourceTree = "<group>"; };
 		294D25F41C89ADC300D99710 /* JLDefaultMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLDefaultMapper.h; sourceTree = "<group>"; };
 		294D25F51C89ADC300D99710 /* JLDefaultMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JLDefaultMapper.m; sourceTree = "<group>"; };
 		294D25F71C89ADDF00D99710 /* JLDefaultBaseReq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLDefaultBaseReq.h; sourceTree = "<group>"; };
@@ -210,6 +211,7 @@
 				2910EBBA1CDEE79900E00A95 /* JLNetworkingReq+cache.m */,
 				298B45381CDC4AC400E79BC7 /* JLNetBatchRequest.h */,
 				298B45391CDC4AC400E79BC7 /* JLNetBatchRequest.m */,
+				294B36BE1CE4E38E00491889 /* JLNetworking.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";

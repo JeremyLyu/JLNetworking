@@ -20,6 +20,8 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.platform = :ios
   s.ios.deployment_target = "7.0"
+  s.public_header_files = 'Classes/**/*.h'
+  s.source_files = 'Classes/JLNetworking.h'
 
     s.subspec 'Networking' do |ss|
     ss.source_files = "Classes/*.{h,m}"

@@ -9,10 +9,6 @@
 #import "JLNetworkingManager.h"
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
 
-@interface JLNetworkingManager ()
-@property (nonatomic, strong) NSMutableDictionary *operationQueueDict;
-@end
-
 @implementation JLNetworkingMultiDataObj
 
 - (instancetype)init
@@ -61,6 +57,7 @@
 
 @property (nonatomic, strong) AFHTTPRequestOperationManager *mainOperationManager;
 @property (nonatomic, strong) AFJSONResponseSerializer *JSONResponseSerializer;
+@property (nonatomic, strong) NSMutableDictionary *operationQueueDict;
 @end
 
 static const NSTimeInterval JLNetworkingDefaultTimeoutInterval = 30;
